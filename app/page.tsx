@@ -12,6 +12,7 @@ import VinedoSection from "@/components/vinedo";
 import BodegaSection from "@/components/bodega";
 import VinosSection from "@/components/vinos";
 import VideoSection from "@/components/video";
+import VisitasSection from "@/components/visitas";
 
 export default function Home() {
   const [isChecked, setIsChecked] = useState(false);
@@ -95,7 +96,7 @@ export default function Home() {
         <VinosSection />
       </section>
       <section id="visitas" className="h-screen snap-start">
-        {/* <VisitasSection /> */} Visitas
+        <VisitasSection />
       </section>
     </main>
   );

@@ -29,9 +29,9 @@ const VinosSection = () => {
           online.
         </p>
         <Button
-          className={`${montserrat.className} rounded-none hover:bg-midBrownCustom/80 self-start bg-midBrownCustom uppercase`}
+          className={`${montserrat.className} rounded-none hover:bg-midBrownCustom/80 self-start bg-midBrownCustom uppercase tracking-wide text-base`}
         >
-          Ir a la tienda onlie
+          Ir a la tienda online
         </Button>
       </div>
       <div className="w-1/2 relative">
