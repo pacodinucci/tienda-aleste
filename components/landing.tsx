@@ -1,9 +1,11 @@
-import Image from "next/image";
-import { montserrat, playfair, oswald } from "@/lib/fonts";
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { CircleArrowDown } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
+import { BarLoader } from "react-spinners";
+import { CircleArrowDown } from "lucide-react";
+import { motion } from "framer-motion";
+
+import { montserrat, oswald } from "@/lib/fonts";
+import { Button } from "@/components/ui/button";
 
 interface LandingProps {
   isChecked: boolean;
@@ -16,16 +18,41 @@ const Landing: React.FC<LandingProps> = ({
   setIsChecked,
   handleIngresarClick,
 }) => {
+  const [isBackgroundLoaded, setIsBackgroundLoaded] = useState(false);
+
+  const handleImageLoad = () => {
+    setIsBackgroundLoaded(true);
+  };
+
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
   };
 
   return (
     <section className="h-screen snap-start flex pt-24">
-      <div className="bg-brotes bg-cover absolute inset-0 mx-6 mb-6" />
-      <div className="absolute inset-0 bg-darkCustom opacity-40 mx-6 mb-6" />
+      {!isBackgroundLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center bg-darkCustom z-50">
+          <BarLoader color="#ffffff" />
+        </div>
+      )}
+      <div className="absolute inset-0 mx-6 mb-6">
+        <Image
+          src="/brotes.webp"
+          alt="brotes al este"
+          layout="fill"
+          objectFit="cover"
+          onLoadingComplete={handleImageLoad}
+        />
+      </div>
+      <div
+        className={`absolute inset-0 bg-darkCustom opacity-40 mx-6 mb-6 ${
+          isBackgroundLoaded ? "block" : "hidden"
+        }`}
+      />
       <motion.div
-        className="z-10 inline-flex flex-col items-center w-1/2"
+        className={`z-10 inline-flex flex-col items-center w-1/2 ${
+          !isBackgroundLoaded ? "hidden" : ""
+        }`}
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -43,7 +70,11 @@ const Landing: React.FC<LandingProps> = ({
           height={500}
         />
       </motion.div>
-      <div className="w-1/2 flex justify-center items-start z-10">
+      <div
+        className={`w-1/2 flex justify-center items-start z-10 ${
+          !isBackgroundLoaded ? "hidden" : ""
+        }`}
+      >
         <motion.div
           className="p-10 flex flex-col gap-y-8 rounded-sm"
           initial={{ y: -50, opacity: 0 }}
