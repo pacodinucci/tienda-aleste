@@ -1,11 +1,7 @@
 "use client";
 import React from "react";
 
-interface AdminPageProps {
-  children: React.ReactNode;
-}
-
-const AdminPage: React.FC<AdminPageProps> = ({ children }) => {
+const AdminPage = ({ children }: { children?: React.ReactNode }) => {
   return <div>{children}</div>;
 };
 
