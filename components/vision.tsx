@@ -19,20 +19,19 @@ const VisionSection = () => {
         >
           <p>
             Con espíritu pionero llegamos a un lugar único, distinto y poco
-            conquistado. Allí, donde se confunde la Pampa y la Patagonia, al
-            norte del Río Colorado, a 39° de latitud sur, muy cerca del Océano
-            Atlántico, producimos vinos de alta calidad. Al Este Bodega &
-            Viñedos representa el punto de partida para sumar al mapa
-            vitivinícola mundial una nueva región argentina productora de vinos
-            de alta calidad.
+            conquistado. Allí, donde se confunden la Pampa y la Patagonia, Al
+            Este Bodega & Viñedos representa el punto de partida para sumar al
+            mapa vitivinícola mundial una nueva región argentina productora de
+            vinos de alta calidad.
           </p>
           <p>
-            Durante muchos años regían disposiciones proteccionistas que
-            prohibían producir uva y vino, en la provincia de Buenos Aires. ​​
+            Durante muchos años rigieron disposiciones proteccionistas que
+            prohibían producir uva y vino en la Provincia de Buenos Aires. ​​
           </p>
           <p>
-            El 1ro de diciembre del año 2000 iniciamos nuestra explotación. Ese
-            día la Provincia de Buenos Aires rompió con 63 años de prohibición.
+            El 1 de diciembre del año 2000 iniciamos nuestra explotación y fue
+            ese día cuando la Provincia de Buenos Aires rompió con 63 años de
+            prohibición.
           </p>
         </motion.div>
       </div>
