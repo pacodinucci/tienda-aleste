@@ -8,6 +8,10 @@ import Landing from "@/components/landing";
 import VisionSection from "@/components/vision";
 import Navbar from "@/components/navbar";
 import TerroirSection from "@/components/terroir";
+import VinedoSection from "@/components/vinedo";
+import BodegaSection from "@/components/bodega";
+import VinosSection from "@/components/vinos";
+import VideoSection from "@/components/video";
 
 export default function Home() {
   const [isChecked, setIsChecked] = useState(false);
@@ -75,27 +79,20 @@ export default function Home() {
       <section id="section2" className="h-screen snap-start">
         <VisionSection />
       </section>
-      <section id="terroir" className="h-screen snap-start">
+      <section id="terroir" className="h-screen snap-start overflow-hidden">
         <TerroirSection />
       </section>
       <section id="vinedo" className="h-screen snap-start">
-        {/* <VinedoSection /> */} Viñedo
+        <VinedoSection />
       </section>
       <section id="bodega" className="h-screen snap-start">
-        {/* <BodegaSection /> */} Bodega
+        <BodegaSection />
       </section>
       <section className="h-screen snap-start">
-        <video
-          className="w-full h-full object-contain px-10 py-24"
-          src="/videoaleste.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
+        <VideoSection />
       </section>
       <section id="vinos" className="h-screen snap-start">
-        {/* <VinosSection /> */} Vinos
+        <VinosSection />
       </section>
       <section id="visitas" className="h-screen snap-start">
         {/* <VisitasSection /> */} Visitas

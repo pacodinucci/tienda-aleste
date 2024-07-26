@@ -18,6 +18,11 @@ const config = {
       },
     },
     extend: {
+      textShadow: {
+        sm: "1px 1px 2px rgba(0, 0, 0, 0.5)",
+        md: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+        lg: "3px 3px 6px rgba(0, 0, 0, 0.5)",
+      },
       backgroundImage: {
         brotes: "url(/brotes.webp)",
         noche: "url(/bodeganoche.webp)",
@@ -26,6 +31,8 @@ const config = {
         brownCustom: "#DBCEBE",
         darkCustom: "#331F07",
         midBrownCustom: "#A8947B",
+        shade: "#3D3A35",
+        cuero: "#422E16",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

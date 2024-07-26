@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { montserrat, playfair, inter } from "@/lib/fonts";
+import { montserrat, playfair, oswald } from "@/lib/fonts";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { CircleArrowDown } from "lucide-react";
@@ -16,8 +16,6 @@ const Landing: React.FC<LandingProps> = ({
   setIsChecked,
   handleIngresarClick,
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
   };
@@ -53,7 +51,7 @@ const Landing: React.FC<LandingProps> = ({
           transition={{ duration: 0.8 }}
         >
           <h1
-            className={`${inter.className} text-white text-5xl tracking-wide font-medium uppercase`}
+            className={`${oswald.className} text-white text-5xl tracking-wide font-medium uppercase`}
           >
             Bienvenido / Welcome
           </h1>
@@ -65,33 +63,31 @@ const Landing: React.FC<LandingProps> = ({
                 className="mr-4 h-6 w-6 accent-green-800"
                 onChange={handleCheckboxChange}
               />
-              <label className="text-white font-light ">
+              <label
+                className={`${montserrat.className} text-white font-light `}
+              >
                 Soy mayor de edad para beber. / I&apos;m of legal drinking age.
               </label>
             </div>
-            <div
-              className="relative self-center mt-16"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
+            <div className="relative mt-16">
               <Button
                 variant="ingresar"
                 className={`${montserrat.className} self-center uppercase tracking-widest relative`}
                 disabled={!isChecked}
                 onClick={handleIngresarClick}
                 style={{
-                  width: isHovered ? "180px" : "150px",
-                  transition: "width 0.3s",
+                  width: isChecked ? "180px" : "150px",
+                  transition: "width 0.4s",
                   overflow: "hidden",
                   whiteSpace: "nowrap",
                 }}
               >
                 <span>Ingresar</span>
-                {isHovered && (
+                {isChecked && (
                   <motion.span
-                    initial={{ opacity: 0, y: -10 }}
+                    initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.5 }}
                     className="inline-block text-white ml-2"
                   >
                     <CircleArrowDown size={20} />

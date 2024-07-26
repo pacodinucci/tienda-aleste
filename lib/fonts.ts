@@ -9,6 +9,7 @@ import {
   Montserrat,
   Righteous,
   Raleway,
+  Lato,
 } from "next/font/google";
 
 export const inter = Inter({
@@ -59,4 +60,9 @@ export const righteous = Righteous({
 export const raleway = Raleway({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
+export const lato = Lato({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "700", "900"],
 });

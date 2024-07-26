@@ -1,12 +1,19 @@
 import Image from "next/image";
 import React from "react";
-import { montserrat } from "@/lib/fonts";
+import { motion, useInView } from "framer-motion";
+import { montserrat, lato } from "@/lib/fonts";
 
 const VisionSection = () => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -50% 0px" });
+
   return (
-    <div className="h-full relative mx-6">
-      <div
-        className={`bg-darkCustom rounded-sm absolute top-32 left-12 text-white text-xl font-semibold px-10 py-12 w-[70%] z-10 tracking-wide leading-8 flex flex-col gap-y-4 ${montserrat.className}`}
+    <div ref={ref} className="h-full mx-6 flex">
+      <motion.div
+        className={`bg-darkCustom text-white text-lg px-10 py-12 w-1/2 z-10 tracking-wide leading-8 flex flex-col justify-center items-center gap-y-4 ${montserrat.className}`}
+        initial={{ x: -100, opacity: 1 }}
+        animate={isInView ? { x: 0, opacity: 1 } : {}}
+        transition={{ duration: 0.8 }}
       >
         <p>
           Con espíritu pionero llegamos a un lugar único, distinto y poco
@@ -21,19 +28,23 @@ const VisionSection = () => {
           producir uva y vino, en la provincia de Buenos Aires. ​​
         </p>
         <p>
-          El 1 de diciembre del año 2000 iniciamos nuestra explotación. Ese día
-          la Provincia de Buenos Aires rompió con 63 años de prohibición.
+          El 1ro de diciembre del año 2000 iniciamos nuestra explotación. Ese
+          día la Provincia de Buenos Aires rompió con 63 años de prohibición.
         </p>
-      </div>
-      <div className="absolute bottom-0 right-0">
+      </motion.div>
+      <motion.div
+        className="relative w-1/2 h-full"
+        initial={{ y: 100, opacity: 0 }}
+        animate={isInView ? { y: 0, opacity: 1 } : {}}
+        transition={{ duration: 0.8 }}
+      >
         <Image
-          src="/fondomedano.png"
+          src="/bodegaarbol.png"
           alt="al este vinos"
-          width={1000}
-          height={1000}
-          className="rounded-sm"
+          layout="fill"
+          objectFit="cover"
         />
-      </div>
+      </motion.div>
     </div>
   );
 };
