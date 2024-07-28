@@ -1,4 +1,6 @@
-import { useState } from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { BarLoader } from "react-spinners";
 import { CircleArrowDown } from "lucide-react";
@@ -19,6 +21,7 @@ const Landing: React.FC<LandingProps> = ({
   handleIngresarClick,
 }) => {
   const [isBackgroundLoaded, setIsBackgroundLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const handleImageLoad = () => {
     setIsBackgroundLoaded(true);
@@ -28,8 +31,19 @@ const Landing: React.FC<LandingProps> = ({
     setIsChecked(event.target.checked);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize(); // Check on initial render
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <section className="h-screen snap-start flex pt-24">
+    <section className="h-screen snap-start flex flex-col pt-32 md:flex-row">
       {!isBackgroundLoaded && (
         <div className="absolute inset-0 flex items-center justify-center bg-darkCustom z-50">
           <BarLoader color="#ffffff" />
@@ -50,7 +64,7 @@ const Landing: React.FC<LandingProps> = ({
         }`}
       />
       <motion.div
-        className={`z-10 inline-flex flex-col items-center w-1/2 ${
+        className={`z-10 inline-flex flex-col items-center w-full md:w-1/2 ${
           !isBackgroundLoaded ? "hidden" : ""
         }`}
         initial={{ y: -50, opacity: 0 }}
@@ -60,18 +74,18 @@ const Landing: React.FC<LandingProps> = ({
         <Image
           src="/logogaviotas.svg"
           alt="logo al este"
-          width={200}
-          height={200}
+          width={isMobile ? 100 : 200}
+          height={isMobile ? 100 : 200}
         />
         <Image
           src="/alestelogotipo.svg"
           alt="logo al este"
-          width={500}
-          height={500}
+          width={isMobile ? 250 : 500}
+          height={isMobile ? 250 : 500}
         />
       </motion.div>
       <div
-        className={`w-1/2 flex justify-center items-start z-10 ${
+        className={`w-full md:w-1/2 flex justify-center items-start z-10 ${
           !isBackgroundLoaded ? "hidden" : ""
         }`}
       >
@@ -82,7 +96,7 @@ const Landing: React.FC<LandingProps> = ({
           transition={{ duration: 0.8 }}
         >
           <h1
-            className={`${oswald.className} text-white text-5xl tracking-wide font-medium uppercase`}
+            className={`${oswald.className} text-white text-2xl md:text-5xl tracking-wide font-medium uppercase`}
           >
             Bienvenido / Welcome
           </h1>
@@ -100,7 +114,7 @@ const Landing: React.FC<LandingProps> = ({
                 Soy mayor de edad para beber. / I&apos;m of legal drinking age.
               </label>
             </div>
-            <div className="relative mt-16">
+            <div className="relative mt-8 md:mt-16">
               <Button
                 variant="ingresar"
                 className={`${montserrat.className} self-center uppercase tracking-widest relative`}

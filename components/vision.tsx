@@ -1,16 +1,29 @@
 import Image from "next/image";
 import React from "react";
 import { motion, useInView } from "framer-motion";
-import { montserrat, lato } from "@/lib/fonts";
+import { montserrat } from "@/lib/fonts";
 
 const VisionSection = () => {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, margin: "0px 0px -50% 0px" });
 
   return (
-    <div ref={ref} className="h-full mx-6 flex">
+    <div ref={ref} className="h-screen mx-6 flex flex-col md:flex-row relative">
+      <motion.div
+        className="absolute inset-0 h-full w-full md:hidden"
+        initial={{ y: 100, opacity: 0 }}
+        animate={isInView ? { y: 0, opacity: 1 } : {}}
+        transition={{ duration: 0.8 }}
+      >
+        <Image
+          src="/bodegaarbol.png"
+          alt="al este vinos"
+          layout="fill"
+          objectFit="cover"
+        />
+      </motion.div>
       <div
-        className={`bg-darkCustom text-white text-lg px-10 py-12 w-1/2 z-10 tracking-wide leading-8 flex flex-col justify-center items-center gap-y-4 ${montserrat.className}`}
+        className={`relative bg-darkCustom md:bg-opacity-100 bg-opacity-60 text-white text-lg px-6 py-8 md:px-10 md:py-12 w-full h-full md:w-1/2 z-10 tracking-wide leading-8 flex flex-col justify-center items-center gap-y-4 ${montserrat.className}`}
       >
         <motion.div
           initial={{ x: -100, opacity: 1 }}
@@ -36,7 +49,7 @@ const VisionSection = () => {
         </motion.div>
       </div>
       <motion.div
-        className="relative w-1/2 h-full"
+        className="relative hidden md:block w-1/2 h-full"
         initial={{ y: 100, opacity: 0 }}
         animate={isInView ? { y: 0, opacity: 1 } : {}}
         transition={{ duration: 0.8 }}
