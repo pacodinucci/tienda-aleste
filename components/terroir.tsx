@@ -8,7 +8,7 @@ const TerroirSection = () => {
   const isInView = useInView(ref, { once: true, margin: "0px 0px -80% 0px" });
 
   return (
-    <div ref={ref} className="pt-16 px-6 relative h-full">
+    <div ref={ref} className="pt-16 px-6 relative h-full overflow-x-hidden">
       <motion.h1
         className={`${oswald.className} hidden md:block absolute top-36 left-10 text-white uppercase text-5xl z-20 bg-cuero px-4 py-4`}
         initial={{ x: -100, opacity: 1 }}

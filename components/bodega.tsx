@@ -10,7 +10,7 @@ const BodegaSection = () => {
   return (
     <div
       ref={ref}
-      className="relative h-screen md:h-full pt-10 md:pt-24 px-6 flex flex-col md:flex-row"
+      className="relative h-screen md:h-full pt-10 md:pt-24 px-6 flex flex-col md:flex-row overflow-x-hidden"
     >
       <motion.h1
         className={`${oswald.className} hidden md:block absolute top-36 left-10 text-white uppercase text-5xl z-20 bg-cuero px-4 py-4`}
@@ -99,13 +99,13 @@ const BodegaSection = () => {
           <h1 className={`${oswald.className} uppercase text-4xl mb-6`}>
             Bodega
           </h1>
-          <p>
+          <p className={`${montserrat.className}`}>
             Nuestra bodega cuenta con la tecnología para cumplir el ciclo
             completo de producción de vinos de alta gama. Posee tanques de acero
             inoxidable para fermentación y crianza, sala de barricas de roble y
             estiba de botellas.
           </p>
-          <p>
+          <p className={`${montserrat.className}`}>
             Se complementa con prensa neumática, despalilladora, moledora y
             fraccionadora.
           </p>

@@ -8,7 +8,10 @@ const VisionSection = () => {
   const isInView = useInView(ref, { once: true, margin: "0px 0px -50% 0px" });
 
   return (
-    <div ref={ref} className="h-screen mx-6 flex flex-col md:flex-row relative">
+    <div
+      ref={ref}
+      className="h-screen mx-6 flex flex-col md:flex-row relative overflow-x-hidden"
+    >
       <motion.div
         className="absolute inset-0 h-full w-full md:hidden"
         initial={{ y: 100, opacity: 0 }}
