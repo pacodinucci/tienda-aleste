@@ -89,7 +89,7 @@ export default function Home() {
       <section id="bodega" className="h-screen snap-start">
         <BodegaSection />
       </section>
-      <section className="h-screen snap-start">
+      <section className="hidden md:block h-screen snap-start">
         <VideoSection />
       </section>
       <section id="vinos" className="h-screen snap-start">

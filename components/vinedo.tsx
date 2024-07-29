@@ -8,18 +8,37 @@ const VinedoSection = () => {
   const isInView = useInView(ref, { once: true, margin: "0px 0px -50% 0px" });
 
   return (
-    <div ref={ref} className="h-full mx-6 pt-28 flex">
-      <div className="w-1/2 bg-cuero flex justify-center flex-col">
+    <div
+      ref={ref}
+      className="h-screen mx-6 flex flex-col mt-16 md:flex-row relative"
+    >
+      <motion.div
+        className="absolute inset-0 h-full w-full md:hidden"
+        initial={{ y: 100, opacity: 0 }}
+        animate={isInView ? { y: 0, opacity: 1 } : {}}
+        transition={{ duration: 0.8 }}
+      >
+        <Image
+          src="/fondomedano.png"
+          alt="viñedo al este"
+          layout="fill"
+          objectFit="cover"
+        />
+        <div className="absolute inset-0 bg-darkCustom/50" />
+      </motion.div>
+      <div
+        className={`relative bg-darkCustom md:bg-opacity-100 bg-opacity-0 text-white text-lg px-6 py-8 md:px-10 md:py-12 w-full h-full md:w-1/2 z-10 tracking-wide leading-8 flex flex-col justify-center items-center gap-y-4 ${montserrat.className}`}
+      >
         <motion.h1
-          className={`${oswald.className} text-white uppercase text-5xl z-20 px-16 py-4`}
-          initial={{ x: -100, opacity: 1 }}
+          className={`${oswald.className} text-white uppercase text-4xl md:text-5xl z-20 px-4 py-4`}
+          initial={{ x: -100, opacity: 0 }}
           animate={isInView ? { x: 0, opacity: 1 } : {}}
           transition={{ duration: 0.8 }}
         >
           Viñedo
         </motion.h1>
         <motion.div
-          className={`text-white text-lg px-16 py-12 z-10 tracking-wide leading-8 flex flex-col gap-y-4 ${montserrat.className}`}
+          className={`text-white text-lg z-10 tracking-wide leading-8 flex flex-col gap-y-4 ${montserrat.className}`}
           initial={{ x: -100, opacity: 0 }}
           animate={isInView ? { x: 0, opacity: 1 } : {}}
           transition={{ duration: 0.8 }}
@@ -41,20 +60,18 @@ const VinedoSection = () => {
         </motion.div>
       </div>
       <motion.div
-        className="w-1/2 relative"
+        className="relative hidden md:block w-1/2 h-full"
         initial={{ y: 100, opacity: 0 }}
         animate={isInView ? { y: 0, opacity: 1 } : {}}
         transition={{ duration: 0.8 }}
       >
-        <div className="relative w-full h-full">
-          <Image
-            src="/fondomedano.png"
-            alt="viñedo al este"
-            layout="fill"
-            objectFit="cover"
-            objectPosition="right"
-          />
-        </div>
+        <Image
+          src="/fondomedano.png"
+          alt="viñedo al este"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="right"
+        />
       </motion.div>
     </div>
   );
