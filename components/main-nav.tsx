@@ -2,7 +2,12 @@ import React from "react";
 import Link from "next/link";
 import { montserrat } from "@/lib/fonts";
 
-const MainNav = () => {
+interface MainNavProps {
+  isMobile: boolean;
+  setIsMenuOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const MainNav = ({ isMobile, setIsMenuOpen }: MainNavProps) => {
   const handleClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
     id: string
@@ -11,13 +16,18 @@ const MainNav = () => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
+      if (isMobile && setIsMenuOpen) {
+        setIsMenuOpen(false);
+      }
     }
   };
 
   return (
     <div>
       <ul
-        className={`${montserrat.className} flex gap-x-8 uppercase items-center text-white tracking-wide`}
+        className={`${montserrat.className} flex ${
+          isMobile ? "flex-col gap-y-6 text-2xl" : "flex-row"
+        } gap-x-8 uppercase items-center text-white tracking-wide`}
       >
         <li>
           <Link href="#terroir" onClick={(e) => handleClick(e, "terroir")}>
