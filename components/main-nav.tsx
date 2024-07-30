@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+
 import { montserrat } from "@/lib/fonts";
 
 interface MainNavProps {
@@ -8,19 +10,41 @@ interface MainNavProps {
 }
 
 const MainNav = ({ isMobile, setIsMenuOpen }: MainNavProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const handleClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
-    id: string
+    id: string,
+    href: string
   ) => {
     event.preventDefault();
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+    if (pathname !== "/") {
+      router.push(href);
       if (isMobile && setIsMenuOpen) {
         setIsMenuOpen(false);
       }
+    } else {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+        if (isMobile && setIsMenuOpen) {
+          setIsMenuOpen(false);
+        }
+      }
     }
   };
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const sectionId = hash.replace("#", "");
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [pathname]);
 
   return (
     <div>
@@ -30,27 +54,42 @@ const MainNav = ({ isMobile, setIsMenuOpen }: MainNavProps) => {
         } gap-x-8 uppercase items-center text-white tracking-wide`}
       >
         <li className="hover:text-darkCustom/50 transition-colors">
-          <Link href="#terroir" onClick={(e) => handleClick(e, "terroir")}>
+          <Link
+            href="/#terroir"
+            onClick={(e) => handleClick(e, "terroir", "/#terroir")}
+          >
             Terroir
           </Link>
         </li>
         <li className="hover:text-darkCustom/50 transition-colors">
-          <Link href="#vinedo" onClick={(e) => handleClick(e, "vinedo")}>
+          <Link
+            href="/#vinedo"
+            onClick={(e) => handleClick(e, "vinedo", "/#vinedo")}
+          >
             Viñedo
           </Link>
         </li>
         <li className="hover:text-darkCustom/50 transition-colors">
-          <Link href="#bodega" onClick={(e) => handleClick(e, "bodega")}>
+          <Link
+            href="/#bodega"
+            onClick={(e) => handleClick(e, "bodega", "/#bodega")}
+          >
             Bodega
           </Link>
         </li>
         <li className="hover:text-darkCustom/50 transition-colors">
-          <Link href="#vinos" onClick={(e) => handleClick(e, "vinos")}>
+          <Link
+            href="/#vinos"
+            onClick={(e) => handleClick(e, "vinos", "/#vinos")}
+          >
             Vinos
           </Link>
         </li>
         <li className="hover:text-darkCustom/50 transition-colors">
-          <Link href="#visitas" onClick={(e) => handleClick(e, "visitas")}>
+          <Link
+            href="/#visitas"
+            onClick={(e) => handleClick(e, "visitas", "/#visitas")}
+          >
             Visitas
           </Link>
         </li>

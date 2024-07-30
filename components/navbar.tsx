@@ -1,8 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import MainNav from "./main-nav";
 import { ShoppingBag, AlignJustify, CircleArrowLeft } from "lucide-react";
+import MainNav from "./main-nav";
 
 const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -35,12 +36,14 @@ const Navbar = () => {
           className="fixed top-0 left-0 right-0 bg-midBrownCustom shadow-md z-40 flex justify-between items-center px-6 py-2"
         >
           <div>
-            <Image
-              src="/logogaviotas.svg"
-              alt="logo bodega al este"
-              width={100}
-              height={100}
-            />
+            <Link href={"/"}>
+              <Image
+                src="/logogaviotas.svg"
+                alt="logo bodega al este"
+                width={100}
+                height={100}
+              />
+            </Link>
           </div>
           <div>
             <MainNav isMobile={isMobile} />
