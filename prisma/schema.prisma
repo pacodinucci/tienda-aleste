@@ -26,15 +26,21 @@ model User {
 }
 
 model Product {
-  id          String @id @default(uuid())
-  title       String @unique
+  id          String  @id @default(uuid())
+  title       String  @unique
   category    String
   type        String
   size        String
   description String
   src         String
+  available   Boolean @default(true)
+  boxSize     String  @default("6")
+  discount    String
+  price       String
+  stock       String
+  year        String
   userId      String // Campo de clave foránea para la relación con User
-  user        User   @relation(fields: [userId], references: [id])
+  user        User    @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

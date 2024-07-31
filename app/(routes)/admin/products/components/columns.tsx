@@ -2,13 +2,19 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
+import CellAction from "./cell-action";
 
 export type ProductsColumn = {
   id: string;
   title: string;
+  year: string;
   type: string;
+  price: string;
+  discount: string | undefined;
+  stock: string;
   category: string;
   src: string;
+  available: boolean;
   updatedAt: string;
 };
 
@@ -32,15 +38,36 @@ export const columns: ColumnDef<ProductsColumn>[] = [
     header: "Título",
   },
   {
+    accessorKey: "year",
+    header: "Cosecha",
+  },
+  {
     accessorKey: "type",
     header: "Variedad",
   },
   {
-    accessorKey: "category",
-    header: "Tipo",
+    accessorKey: "price",
+    header: "Precio",
+  },
+  {
+    accessorKey: "stock",
+    header: "Stock",
+  },
+  {
+    accessorKey: "discount",
+    header: "Descuento",
+  },
+  {
+    accessorKey: "available",
+    header: "Disponible",
+    cell: ({ row }) => <span>{row.original.available ? "Si" : "No"}</span>,
   },
   {
     accessorKey: "updatedAt",
     header: "Última Actualización",
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <CellAction data={row.original} />,
   },
 ];

@@ -1,9 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, AlignJustify, CircleArrowLeft } from "lucide-react";
 import MainNav from "./main-nav";
+import useCartStore from "@/hooks/use-cart-store";
 
 const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -24,6 +27,9 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const toggleCart = useCartStore((state) => state.toggleCart);
+  const cartItemsSum = useCartStore((state) => state.cart.length);
 
   return (
     <>
@@ -48,8 +54,17 @@ const Navbar = () => {
           <div>
             <MainNav isMobile={isMobile} />
           </div>
-          <div>
-            <ShoppingBag size={20} className="text-white cursor-pointer" />
+          <div className="relative p-2">
+            <ShoppingBag
+              size={20}
+              className="text-white cursor-pointer"
+              onClick={toggleCart}
+            />
+            {cartItemsSum > 0 && (
+              <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full h-4 w-4 text-xs flex items-center justify-center">
+                {cartItemsSum}
+              </span>
+            )}
           </div>
         </motion.nav>
       ) : (

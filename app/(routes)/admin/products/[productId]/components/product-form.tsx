@@ -5,7 +5,7 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Product, User } from "@prisma/client";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
 
@@ -28,6 +28,7 @@ import { ImageUpload } from "./image-upload";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface ProductFormProps {
   initialData: Product | null;
@@ -44,6 +45,7 @@ const formSchema = z.object({
   type: z.string().min(1, {
     message: "Variedad de vino requerida.",
   }),
+  year: z.string().min(1, { message: "Año de cosecha es requerido." }),
   size: z.string().min(1, {
     message: "Tamaño de vino es requerido.",
   }),
@@ -53,10 +55,16 @@ const formSchema = z.object({
   src: z.string().min(1, {
     message: "Imagen es requerida.",
   }),
+  discount: z.string(),
+  price: z.string(),
+  stock: z.string(),
+  available: z.boolean().default(true),
+  boxSize: z.string(),
 });
 
 const ProductForm = ({ initialData, user }: ProductFormProps) => {
   const router = useRouter();
+  const params = useParams();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -64,9 +72,15 @@ const ProductForm = ({ initialData, user }: ProductFormProps) => {
       title: "",
       category: "",
       type: "",
+      year: "",
       size: "750ml",
       description: "",
       src: "",
+      discount: "0",
+      price: "",
+      stock: "",
+      available: true,
+      boxSize: "6",
     },
   });
 
@@ -74,15 +88,20 @@ const ProductForm = ({ initialData, user }: ProductFormProps) => {
 
   const wineTypes = ["Tinto", "Blanco", "Rosado", "Espumante"];
 
+  const boxes = ["2", "4", "6"];
+
+  const discounts = ["0", "5", "10", "15", "20", "25", "30"];
+
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
       if (!initialData) {
         await axios.post("/api/products", { ...data, user });
-        console.log("producto agregado.");
         toast.success("Producto agregado.");
         router.push("/admin/products");
       } else {
-        console.log("actualizar producto.");
+        await axios.patch(`/api/products/${params.productId}`, { data });
+        toast.success("Producto actualizado.");
+        router.push("/admin/products");
       }
     } catch (error) {
       console.log(error);
@@ -105,7 +124,7 @@ const ProductForm = ({ initialData, user }: ProductFormProps) => {
               </p>
             </div>
             <Separator className="bg-primary/10" />
-            <div className="pt-6 flex gap-x-10">
+            <div className="pt-6 pb-4 flex gap-x-10">
               <div className="flex-1 flex flex-col gap-y-4">
                 <FormField
                   name="title"
@@ -133,10 +152,22 @@ const ProductForm = ({ initialData, user }: ProductFormProps) => {
                     )}
                   />
                   <FormField
+                    name="year"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem className="max-w-36 min-w-36">
+                        <FormLabel>Año de cosecha</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="number" min="2020" />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
                     name="category"
                     control={form.control}
                     render={({ field }) => (
-                      <FormItem className="min-w-48">
+                      <FormItem className="max-w-36 min-w-36">
                         <FormLabel>Tipo de vino</FormLabel>
                         <Select
                           disabled={isLoading}
@@ -192,7 +223,110 @@ const ProductForm = ({ initialData, user }: ProductFormProps) => {
                 )}
               />
             </div>
-            <div>
+            <div className="flex gap-x-12">
+              <FormField
+                name="price"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Precio</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="number" />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="stock"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Stock</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="number" />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="boxSize"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Botellas por caja</FormLabel>
+                    <Select
+                      disabled={isLoading}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue defaultValue={field.value || "6"} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {boxes.map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {type}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="discount"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Descuento</FormLabel>
+                    <Select
+                      disabled={isLoading}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue
+                            defaultValue={field.value}
+                            placeholder="Seleccionar descuento"
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {discounts.map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {type}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="py-4">
+              <FormField
+                name="available"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem className="flex gap-x-2 items-center">
+                    <FormLabel className="pt-2">Disponible</FormLabel>
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+            <Separator />
+            <div className="pt-4">
               <Button type="submit" disabled={isLoading}>
                 {initialData ? "Actualizar producto" : "Agregar producto"}
               </Button>

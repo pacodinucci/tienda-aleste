@@ -3,10 +3,11 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
-// import { Toaster } from "@/components/ui/sonner";
+import { BarLoader } from "react-spinners";
 
 import Navbar from "./components/navbar";
 import { Sidebar } from "./components/sidebar";
+import Image from "next/image";
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -32,14 +33,23 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div>Loading...</div> {/* Aquí puedes agregar tu spinner de carga */}
+      <div className="flex flex-col items-center justify-center gap-y-4 h-screen bg-slate-900">
+        <Image
+          src="/logogaviotas.svg"
+          alt="logo al este"
+          width={150}
+          height={0}
+        />
+        <div className="text-white text-xl">
+          <BarLoader color="#ffffff" />
+        </div>{" "}
+        {/* Aquí puedes agregar tu spinner de carga */}
       </div>
     );
   }
 
   return (
-    <div className="h-full flex">
+    <div className="min-h-full flex">
       <div className="hidden md:flex w-1/6 flex-col inset-y-0">
         <Sidebar />
       </div>
