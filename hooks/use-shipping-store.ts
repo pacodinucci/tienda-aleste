@@ -1,0 +1,33 @@
+import { create } from "zustand";
+import { ShippingInfo } from "@/lib/types";
+
+interface ShippingStore {
+  shippingInfo: ShippingInfo;
+  setShippingInfo: (info: Partial<ShippingInfo>) => void;
+}
+
+export const useShippingStore = create<ShippingStore>((set) => ({
+  shippingInfo: {
+    fullName: "",
+    phone: "",
+    email: "",
+    address: "",
+    city: "",
+    zipCode: "",
+    observations: "",
+    region: "",
+    deliveryAddressLine: "",
+    deliveryPhone: "",
+    deliveryApart: "",
+    deliveryCity: "",
+    deliveryRegion: "",
+    deliveryZipCode: "",
+    deliveryFullName: "",
+    deliveryDays: [],
+    deliveryTime: [],
+  },
+  setShippingInfo: (info) =>
+    set((state) => ({
+      shippingInfo: { ...state.shippingInfo, ...info },
+    })),
+}));

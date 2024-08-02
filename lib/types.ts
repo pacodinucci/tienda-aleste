@@ -16,3 +16,16 @@ export interface Product {
   updatedAt: Date;
   createdAt: Date;
 }
+
+export interface ShippingInfo {
+  fullName: string;
+  phone: string;
+  email: string;
+  address: string;
+  apart?: string;
+  city: string;
+  zipCode: string;
+  observations?: string;
+  deliveryDays: string[];
+  deliveryTime: string[];
+}

@@ -8,8 +8,11 @@ import useCartStore from "@/hooks/use-cart-store";
 import { montserrat } from "@/lib/fonts";
 import Image from "next/image";
 import { Separator } from "@radix-ui/react-dropdown-menu";
+import { useRouter } from "next/navigation";
 
 const Cart = () => {
+  const router = useRouter();
+
   const {
     cart,
     isCartOpen,
@@ -21,8 +24,18 @@ const Cart = () => {
 
   const calculateTotal = () => {
     return cart.reduce((total, product) => {
-      return total + Number(product.price) * product.quantity;
+      return (
+        total +
+        Number(product.price) * Number(product.boxSize) * product.quantity
+      );
     }, 0);
+  };
+
+  const formatNumber = (number: number): string => {
+    return new Intl.NumberFormat("es-AR", {
+      style: "currency",
+      currency: "ARS",
+    }).format(number);
   };
 
   return (
@@ -83,12 +96,16 @@ const Cart = () => {
                         <div className="flex w-full justify-between">
                           <h3 className="text-white">{product.title}</h3>
                           <p className="text-white">
-                            ${Number(product.price) * product.quantity}
+                            {formatNumber(
+                              Number(product.price) *
+                                Number(product.boxSize) *
+                                product.quantity
+                            )}
                           </p>
                         </div>
                         <div className="flex">
                           <div className="flex items-center gap-x-4">
-                            <div className="flex items-center py-1 px-2 bg-brownCustom text-neutral-600">
+                            <div className="flex items-center py-1 px-2 border-2 border-white text-white">
                               <button
                                 onClick={() =>
                                   updateCartItem(
@@ -108,7 +125,7 @@ const Cart = () => {
                                     Number(e.target.value)
                                   )
                                 }
-                                className="text-neutral-600 dark:text-white border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2rem] text-center"
+                                className="text-white dark:text-white border-0 bg-transparent text-xs font-normal focus:outline-none focus:ring-0 max-w-[2rem] text-center"
                                 style={{ MozAppearance: "textfield" }}
                               />
                               <button
@@ -124,9 +141,9 @@ const Cart = () => {
                             </div>
                             <button
                               onClick={() => removeFromCart(product.id)}
-                              className="text-neutral-600 bg-brownCustom py-1 px-4 flex items-center text-sm gap-x-2"
+                              className="text-white border-2 border-white py-1 px-4 flex items-center text-xs gap-x-2"
                             >
-                              <Trash2 size={20} />
+                              <Trash2 size={15} />
                               Eliminar
                             </button>
                           </div>
@@ -141,15 +158,28 @@ const Cart = () => {
                 className={`${montserrat.className} flex justify-between items-center text-white mt-4`}
               >
                 <p className="text-lg">Subtotal</p>
-                <p className="text-lg">${calculateTotal().toFixed(2)}</p>
+                <p className="text-lg">{formatNumber(calculateTotal())}</p>
               </div>
-              <button
-                onClick={clearCart}
-                className="text-neutral-100 py-1 px-4 flex items-center text-sm gap-x-2 absolute bottom-5 right-0"
+              <div
+                className={`${montserrat.className} absolute bottom-5 right-4 flex items-center gap-x-2`}
               >
-                <Trash2 size={20} />
-                Eliminar carrito
-              </button>
+                <button
+                  onClick={clearCart}
+                  className="text-white py-1 px-4 flex items-center text-sm gap-x-2"
+                >
+                  <Trash2 size={20} />
+                  Eliminar carrito
+                </button>
+                <button
+                  onClick={() => {
+                    router.push("/shipping");
+                    toggleCart();
+                  }}
+                  className="py-2 px-4 border-2 border-white hover:bg-brownCustom/10 text-white uppercase"
+                >
+                  Continuar con la compra
+                </button>
+              </div>
             </div>
           )}
         </motion.div>

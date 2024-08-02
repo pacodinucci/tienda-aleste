@@ -10,7 +10,7 @@ const TiendaPage = async () => {
 
   return (
     <div className="min-h-screen">
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="w-full h-[40vh] relative">
         <Image
           src="/fondocava.png"

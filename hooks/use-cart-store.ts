@@ -1,7 +1,7 @@
 import { create } from "zustand";
 // import { Product } from "@prisma/client";
 
-interface CartProduct {
+export interface CartProduct {
   id: string;
   title: string;
   price: string;
