@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { montserrat, oswald } from "@/lib/fonts";
 import useCartStore from "@/hooks/use-cart-store";
@@ -11,11 +11,37 @@ import { CartProduct } from "@/hooks/use-cart-store";
 import { useShippingStore } from "@/hooks/use-shipping-store";
 import { useFormContext } from "@/context/shipping-form-context";
 import AccordionRadioGroup from "@/components/ui/accordion-radio-group";
+import getShipnowPrice from "@/app/actions/get-shipnow-price";
+import { toast } from "sonner";
 
 const Summary = () => {
   const { cart, removeFromCart, updateCartItem } = useCartStore();
   const { shippingInfo } = useShippingStore();
   const { handleSubmit } = useFormContext();
+  const [shippingCost, setShippingCost] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchShippingCost = async () => {
+      try {
+        const weight = 10500; // Peso hardcodeado
+        const zipCode = shippingInfo.deliveryAddress
+          ? shippingInfo.deliveryZipCode
+          : shippingInfo.zipCode;
+        const cost = await getShipnowPrice(weight, Number(zipCode));
+        setShippingCost(cost);
+      } catch (error) {
+        console.error("Error fetching shipping cost:", error);
+      }
+    };
+
+    if (shippingInfo.zipCode.length === 4) {
+      fetchShippingCost();
+    }
+  }, [
+    shippingInfo.zipCode,
+    shippingInfo.deliveryZipCode,
+    shippingInfo.deliveryAddress,
+  ]);
 
   const calculateSubtotal = (item: CartProduct) => {
     return Number(item.price) * Number(item.boxSize) * item.quantity;
@@ -31,8 +57,7 @@ const Summary = () => {
   };
 
   const calculateTotalWithShipping = () => {
-    const shippingCost = 0; // Para este ejemplo es 0
-    return calculateTotal() + shippingCost;
+    return calculateTotal() + (shippingCost || 0);
   };
 
   const formatNumber = (number: number): string => {
@@ -43,8 +68,21 @@ const Summary = () => {
   };
 
   const onSubmit = (data: any) => {
-    console.log("Carrito:", cart);
-    console.log("Información de envío:", data);
+    if (
+      shippingInfo.deliveryAddress &&
+      (!shippingInfo.deliveryFullName ||
+        shippingInfo.deliveryZipCode.length < 4 ||
+        !shippingInfo.deliveryAddressLine ||
+        !shippingInfo.deliveryCity ||
+        shippingInfo.deliveryPhone ||
+        shippingInfo.deliveryRegion ||
+        shippingInfo.deliveryCity)
+    ) {
+      toast.error("Complete todos los campos de la dirección de entrega.");
+    } else {
+      console.log("Carrito:", cart);
+      console.log("Información de envío:", data);
+    }
   };
 
   const paymentOptions = [
@@ -54,11 +92,11 @@ const Summary = () => {
       description:
         "Descripción para pagos con tarjetas guardadas o saldo en Mercado Pago.",
     },
-    {
-      label: "Hasta 12 pagos sin tarjeta con Mercado Pago",
-      value: "mercado-pago-cuotas",
-      description: "Descripción para pagos sin tarjeta con Mercado Pago.",
-    },
+    // {
+    //   label: "Hasta 12 pagos sin tarjeta con Mercado Pago",
+    //   value: "mercado-pago-cuotas",
+    //   description: "Descripción para pagos sin tarjeta con Mercado Pago.",
+    // },
     {
       label: "Transferencia bancaria directa",
       value: "transferencia",
@@ -108,13 +146,17 @@ const Summary = () => {
           <span>{formatNumber(calculateTotal())}</span>
         </div>
         <div
-          className={`${montserrat.className} flex justify-between gap-x-6 text-xl px-4 mt-2`}
+          className={`${montserrat.className} flex justify-between items-center gap-x-6 text-xl px-4 mt-2`}
         >
           <p>Envío</p>
-          <span>{formatNumber(0)}</span>
+          <span className={shippingCost === null ? "text-sm" : ""}>
+            {shippingCost !== null
+              ? formatNumber(shippingCost)
+              : "Ingresar código postal"}
+          </span>
         </div>
         <p className="text-xs text-right px-4 text-neutral-500 mb-2">
-          (Los envíos en CABA y GBA no tienen costo.)
+          (Los envíos en CABA no tienen costo.)
         </p>
         <Separator />
         <div
@@ -132,7 +174,7 @@ const Summary = () => {
           className={`${montserrat.className} bg-midBrownCustom text-white uppercase hover:bg-midBrownCustom/70 rounded-none`}
           onClick={handleSubmit(onSubmit)}
         >
-          Ir a pagar
+          Realizar pedido
         </Button>
       </div>
     </div>

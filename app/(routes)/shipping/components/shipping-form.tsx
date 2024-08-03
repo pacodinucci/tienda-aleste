@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useFormContext,
   FormValues,
@@ -42,12 +42,18 @@ const ShippingForm = () => {
     setShippingInfo({ [name]: value });
   };
 
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    setIsDifferentDeliveryAddress(checked);
+    handleInputChange("deliveryAddress", checked);
+  };
+
   return (
     <div className="h-full p-4 space-y-2 max-w-4xl pl-6 pr-24">
       <h2
         className={`${oswald.className} text-neutral-700 text-3xl tracking-wide py-4 mb-4 uppercase`}
       >
-        Completa los datos para el envío
+        Datos para la facturación
       </h2>
       <Form {...form}>
         <form className={`${oswald.className} text-neutral-700 space-y-6`}>
@@ -257,7 +263,10 @@ const ShippingForm = () => {
                 <FormLabel>Provincia</FormLabel>
                 <Select
                   disabled={isLoading}
-                  onValueChange={field.onChange}
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    handleInputChange("region", value);
+                  }}
                   value={field.value}
                   defaultValue={field.value}
                 >
@@ -288,7 +297,7 @@ const ShippingForm = () => {
               type="checkbox"
               id="differentDeliveryAddress"
               checked={isDifferentDeliveryAddress}
-              onChange={(e) => setIsDifferentDeliveryAddress(e.target.checked)}
+              onChange={handleCheckboxChange}
               className="mr-2"
             />
             <label
@@ -478,7 +487,10 @@ const ShippingForm = () => {
                     <FormLabel>Provincia</FormLabel>
                     <Select
                       disabled={isLoading}
-                      onValueChange={field.onChange}
+                      onValueChange={(value) => {
+                        field.onChange(value);
+                        handleInputChange("deliveryRegion", value);
+                      }}
                       value={field.value}
                       defaultValue={field.value}
                     >

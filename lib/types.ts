@@ -26,6 +26,15 @@ export interface ShippingInfo {
   city: string;
   zipCode: string;
   observations?: string;
+  region: string;
+  deliveryAddress: boolean;
+  deliveryAddressLine: string;
+  deliveryPhone: string;
+  deliveryApart: string;
+  deliveryCity: string;
+  deliveryRegion: string;
+  deliveryZipCode: string;
+  deliveryFullName: string;
   deliveryDays: string[];
   deliveryTime: string[];
 }

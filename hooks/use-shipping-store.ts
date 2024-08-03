@@ -16,6 +16,7 @@ export const useShippingStore = create<ShippingStore>((set) => ({
     zipCode: "",
     observations: "",
     region: "",
+    deliveryAddress: false,
     deliveryAddressLine: "",
     deliveryPhone: "",
     deliveryApart: "",
