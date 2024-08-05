@@ -1,23 +1,25 @@
-import React, { useState } from "react";
+import { montserrat } from "@/lib/fonts";
+import React, { ReactElement } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface AccordionRadioGroupProps {
   options: Array<{
     label: string;
     value: string;
-    description: string;
+    description: string | ReactElement;
     discount?: string;
   }>;
+  selectedValue: string;
+  onValueChange: (value: string) => void;
 }
 
 const AccordionRadioGroup: React.FC<AccordionRadioGroupProps> = ({
   options,
+  selectedValue,
+  onValueChange,
 }) => {
-  const [selectedValue, setSelectedValue] = useState<string | null>(
-    options.length > 0 ? options[0].value : null
-  );
-
   const handleChange = (value: string) => {
-    setSelectedValue(value);
+    onValueChange(value);
   };
 
   return (
@@ -36,10 +38,10 @@ const AccordionRadioGroup: React.FC<AccordionRadioGroupProps> = ({
             />
             <label
               htmlFor={option.value}
-              className="flex-grow cursor-pointer flex items-center"
+              className={`${montserrat.className} flex-grow cursor-pointer flex items-center`}
             >
               <span
-                className={`w-4 h-4 mr-2 inline-block border border-darkCustom rounded-full flex items-center justify-center ${
+                className={`w-4 h-4 mr-2 border border-darkCustom rounded-full flex items-center justify-center ${
                   selectedValue === option.value
                     ? "bg-brownCustom border-transparent"
                     : "bg-white"
@@ -57,11 +59,26 @@ const AccordionRadioGroup: React.FC<AccordionRadioGroupProps> = ({
               </span>
             </label>
           </div>
-          {selectedValue === option.value && (
-            <div className="p-4 bg-gray-50 border-t border-b border-gray-300 min-h-[80px]">
-              <p>{option.description}</p>
-            </div>
-          )}
+          <AnimatePresence initial={false}>
+            {selectedValue === option.value && (
+              <motion.div
+                key={option.value}
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                style={{ overflow: "hidden" }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                <div className="p-4 bg-gray-50 border-t border-b border-gray-300 min-h-[80px]">
+                  <p
+                    className={`${montserrat.className} text-sm leading-6 tracking-wide`}
+                  >
+                    {option.description}
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       ))}
     </div>

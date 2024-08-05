@@ -13,12 +13,15 @@ import { useFormContext } from "@/context/shipping-form-context";
 import AccordionRadioGroup from "@/components/ui/accordion-radio-group";
 import getShipnowPrice from "@/app/actions/get-shipnow-price";
 import { toast } from "sonner";
+import MercadoPagoBrandBrick from "./mercadopago-brick";
+import MercadoPagoCustom from "./mercadopago-custom";
 
 const Summary = () => {
   const { cart, removeFromCart, updateCartItem } = useCartStore();
   const { shippingInfo } = useShippingStore();
   const { handleSubmit } = useFormContext();
   const [shippingCost, setShippingCost] = useState<number | null>(null);
+  const [paymentMethod, setPaymentMethod] = useState<string>("mercado-pago");
 
   useEffect(() => {
     const fetchShippingCost = async () => {
@@ -82,21 +85,16 @@ const Summary = () => {
     } else {
       console.log("Carrito:", cart);
       console.log("Información de envío:", data);
+      console.log("Método de Pago:", paymentMethod);
     }
   };
 
   const paymentOptions = [
     {
       label: "Compras con tarjetas guardadas o saldo en Mercado Pago",
-      value: "mercado-pago-saldo",
-      description:
-        "Descripción para pagos con tarjetas guardadas o saldo en Mercado Pago.",
+      value: "mercado-pago",
+      description: <MercadoPagoCustom />,
     },
-    // {
-    //   label: "Hasta 12 pagos sin tarjeta con Mercado Pago",
-    //   value: "mercado-pago-cuotas",
-    //   description: "Descripción para pagos sin tarjeta con Mercado Pago.",
-    // },
     {
       label: "Transferencia bancaria directa",
       value: "transferencia",
@@ -167,7 +165,11 @@ const Summary = () => {
         </div>
       </div>
       <div className="pt-10 pl-6">
-        <AccordionRadioGroup options={paymentOptions} />
+        <AccordionRadioGroup
+          options={paymentOptions}
+          selectedValue={paymentMethod}
+          onValueChange={setPaymentMethod}
+        />
       </div>
       <div className="flex justify-end pt-8">
         <Button
