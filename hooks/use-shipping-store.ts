@@ -12,6 +12,7 @@ export const useShippingStore = create<ShippingStore>((set) => ({
     phone: "",
     email: "",
     address: "",
+    identification: "",
     city: "",
     zipCode: "",
     observations: "",

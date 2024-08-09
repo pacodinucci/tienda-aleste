@@ -2,15 +2,45 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, AlignJustify, CircleArrowLeft } from "lucide-react";
 import MainNav from "./main-nav";
+import SemiCart from "./semicart";
 import useCartStore from "@/hooks/use-cart-store";
 
 const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const semiCartRef = useRef<HTMLDivElement>(null);
+  const cartIconRef = useRef<HTMLDivElement>(null);
+
+  const toggleCart = useCartStore((state) => state.toggleCart);
+  const cartItemsSum = useCartStore((state) => state.cart.length);
+  const isCartOpen = useCartStore((state) => state.isCartOpen);
+  const setCartOpen = useCartStore((state) => state.setCartOpen);
+  const setCartClose = useCartStore((state) => state.setCartClose);
+
+  let closeTimeout: ReturnType<typeof setTimeout>;
+
+  const handleMouseEnter = () => {
+    if (closeTimeout) {
+      clearTimeout(closeTimeout);
+    }
+    setCartOpen(); // Abre el carrito
+  };
+
+  const handleMouseLeave = () => {
+    closeTimeout = setTimeout(() => {
+      if (
+        !cartIconRef.current?.contains(document.activeElement) &&
+        !semiCartRef.current?.contains(document.activeElement)
+      ) {
+        setCartClose(); // Cierra el carrito
+      }
+    }, 300); // Retardo de 300ms para cerrar el SemiCart
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,9 +57,6 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  const toggleCart = useCartStore((state) => state.toggleCart);
-  const cartItemsSum = useCartStore((state) => state.cart.length);
 
   return (
     <>
@@ -54,10 +81,15 @@ const Navbar = () => {
           <div>
             <MainNav isMobile={isMobile} />
           </div>
-          <div className="relative p-2">
+          <div
+            className="relative p-2"
+            ref={cartIconRef}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
             <ShoppingBag
               size={20}
-              className="text-white cursor-pointer"
+              className="text-white cursor-pointer hover:text-brownCustom"
               onClick={toggleCart}
             />
             {cartItemsSum > 0 && (
@@ -119,6 +151,13 @@ const Navbar = () => {
           </AnimatePresence>
         </>
       )}
+      <div
+        ref={semiCartRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <SemiCart />
+      </div>
     </>
   );
 };

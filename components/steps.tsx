@@ -11,7 +11,7 @@ const Steps = () => {
           >
             1
             <p className="absolute top-12 left-1/2 transform -translate-x-1/2 text-neutral-800 uppercase text-xs">
-              Envío
+              Carrito
             </p>
           </span>
           <div className="flex items-center justify-center w-24 relative">

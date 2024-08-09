@@ -1,5 +1,4 @@
 import { create } from "zustand";
-// import { Product } from "@prisma/client";
 
 export interface CartProduct {
   id: string;
@@ -13,6 +12,8 @@ interface CartStoreProps {
   cart: CartProduct[];
   isCartOpen: boolean;
   toggleCart: () => void;
+  setCartOpen: () => void; // Acción para abrir el carrito
+  setCartClose: () => void; // Acción para cerrar el carrito
   addToCart: (product: CartProduct) => void;
   removeFromCart: (productId: string) => void;
   updateCartItem: (productId: string, quantity: number) => void;
@@ -23,6 +24,8 @@ const useCartStore = create<CartStoreProps>((set) => ({
   cart: [],
   isCartOpen: false,
   toggleCart: () => set((state) => ({ isCartOpen: !state.isCartOpen })),
+  setCartOpen: () => set({ isCartOpen: true }), // Implementación de la acción para abrir el carrito
+  setCartClose: () => set({ isCartOpen: false }), // Implementación de la acción para cerrar el carrito
   addToCart: (product) =>
     set((state) => {
       const existingProduct = state.cart.find((item) => item.id === product.id);

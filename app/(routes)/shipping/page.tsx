@@ -1,14 +1,24 @@
 "use client";
 
 import { montserrat, oswald } from "@/lib/fonts";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ShippingForm from "./components/shipping-form";
-import Steps from "./components/steps";
+import Steps from "@/components/steps";
 import Summary from "./components/summary";
 import Navbar from "@/components/navbar";
 import { FormProvider } from "@/context/shipping-form-context";
 
 const ShippingPage = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />

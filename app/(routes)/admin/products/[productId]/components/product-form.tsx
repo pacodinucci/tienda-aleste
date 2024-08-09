@@ -29,6 +29,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { wineTypes, boxes, discounts } from "@/lib/constants";
 
 interface ProductFormProps {
   initialData: Product | null;
@@ -55,9 +56,14 @@ const formSchema = z.object({
   src: z.string().min(1, {
     message: "Imagen es requerida.",
   }),
+  weight: z.string().min(1, {
+    message: "Peso es requerido.",
+  }),
   discount: z.string(),
   price: z.string(),
-  stock: z.string(),
+  stock: z.string().refine((val) => !isNaN(Number(val)), {
+    message: "Stock debe ser un número.",
+  }),
   available: z.boolean().default(true),
   boxSize: z.string(),
 });
@@ -66,40 +72,49 @@ const ProductForm = ({ initialData, user }: ProductFormProps) => {
   const router = useRouter();
   const params = useParams();
 
+  const defaultValues = initialData
+    ? {
+        ...initialData,
+        stock: initialData.stock.toString(), // Convertir stock a string
+      }
+    : {
+        title: "",
+        category: "",
+        type: "",
+        year: "",
+        size: "750ml",
+        description: "",
+        src: "",
+        discount: "0",
+        weight: "",
+        price: "",
+        stock: "0", // stock como string
+        available: true,
+        boxSize: "6",
+      };
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData || {
-      title: "",
-      category: "",
-      type: "",
-      year: "",
-      size: "750ml",
-      description: "",
-      src: "",
-      discount: "0",
-      price: "",
-      stock: "",
-      available: true,
-      boxSize: "6",
-    },
+    defaultValues,
   });
 
   const isLoading = form.formState.isSubmitting;
 
-  const wineTypes = ["Tinto", "Blanco", "Rosado", "Espumante"];
-
-  const boxes = ["2", "4", "6"];
-
-  const discounts = ["0", "5", "10", "15", "20", "25", "30"];
-
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    const transformedData = {
+      ...data,
+      stock: Number(data.stock),
+    };
+
     try {
       if (!initialData) {
-        await axios.post("/api/products", { ...data, user });
+        await axios.post("/api/products", { ...transformedData, user });
         toast.success("Producto agregado.");
         router.push("/admin/products");
       } else {
-        await axios.patch(`/api/products/${params.productId}`, { data });
+        await axios.patch(`/api/products/${params.productId}`, {
+          data: transformedData,
+        });
         toast.success("Producto actualizado.");
         router.push("/admin/products");
       }
@@ -244,6 +259,18 @@ const ProductForm = ({ initialData, user }: ProductFormProps) => {
                     <FormLabel>Stock</FormLabel>
                     <FormControl>
                       <Input {...field} type="number" />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="weight"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Peso por caja</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="number" className="max-w-32" />
                     </FormControl>
                   </FormItem>
                 )}

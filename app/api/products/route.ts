@@ -18,6 +18,7 @@ export async function POST(req: Request) {
       stock,
       available,
       boxSize,
+      weight,
     } = body;
 
     if (!user) {
@@ -36,7 +37,8 @@ export async function POST(req: Request) {
       !price ||
       !stock ||
       !available ||
-      !boxSize
+      !boxSize ||
+      !weight
     ) {
       return new NextResponse("All fields are required.", { status: 400 });
     }
@@ -55,6 +57,7 @@ export async function POST(req: Request) {
         stock,
         available,
         boxSize,
+        weight,
         userId: user.id,
       },
     });

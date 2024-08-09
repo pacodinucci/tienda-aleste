@@ -15,6 +15,7 @@ import getShipnowPrice from "@/app/actions/get-shipnow-price";
 import { toast } from "sonner";
 import MercadoPagoBrandBrick from "./mercadopago-brick";
 import MercadoPagoCustom from "./mercadopago-custom";
+import axios from "axios";
 
 const Summary = () => {
   const { cart, removeFromCart, updateCartItem } = useCartStore();
@@ -26,7 +27,7 @@ const Summary = () => {
   useEffect(() => {
     const fetchShippingCost = async () => {
       try {
-        const weight = 10500; // Peso hardcodeado
+        const weight = 11900; // Peso hardcodeado
         const zipCode = shippingInfo.deliveryAddress
           ? shippingInfo.deliveryZipCode
           : shippingInfo.zipCode;
@@ -70,22 +71,37 @@ const Summary = () => {
     }).format(number);
   };
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     if (
       shippingInfo.deliveryAddress &&
       (!shippingInfo.deliveryFullName ||
         shippingInfo.deliveryZipCode.length < 4 ||
         !shippingInfo.deliveryAddressLine ||
         !shippingInfo.deliveryCity ||
-        shippingInfo.deliveryPhone ||
-        shippingInfo.deliveryRegion ||
-        shippingInfo.deliveryCity)
+        !shippingInfo.deliveryPhone ||
+        !shippingInfo.deliveryRegion)
     ) {
       toast.error("Complete todos los campos de la dirección de entrega.");
     } else {
       console.log("Carrito:", cart);
       console.log("Información de envío:", data);
       console.log("Método de Pago:", paymentMethod);
+      console.log("DELIVERY ADDRESS -->> ", shippingInfo.deliveryAddress);
+      const anotherAddress = shippingInfo.deliveryAddress;
+      if (paymentMethod === "mercado-pago") {
+        const response = await axios.post(
+          "https://amused-grizzly-presently.ngrok-free.app/api/checkout",
+          {
+            productIds: cart.map((item) => item.id),
+            shippingCost,
+            cart,
+            data,
+            anotherAddress,
+          }
+        );
+        console.log(response);
+        window.location = response.data.url;
+      }
     }
   };
 

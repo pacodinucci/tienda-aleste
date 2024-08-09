@@ -53,7 +53,7 @@ const MainNav = ({ isMobile, setIsMenuOpen }: MainNavProps) => {
           isMobile ? "flex-col gap-y-6 text-2xl" : "flex-row"
         } gap-x-8 uppercase items-center text-white tracking-wide`}
       >
-        <li className="hover:text-darkCustom/50 transition-colors">
+        <li className="hover:text-brownCustom transition-colors">
           <Link
             href="/#terroir"
             onClick={(e) => handleClick(e, "terroir", "/#terroir")}
@@ -61,7 +61,7 @@ const MainNav = ({ isMobile, setIsMenuOpen }: MainNavProps) => {
             Terroir
           </Link>
         </li>
-        <li className="hover:text-darkCustom/50 transition-colors">
+        <li className="hover:text-brownCustom transition-colors">
           <Link
             href="/#vinedo"
             onClick={(e) => handleClick(e, "vinedo", "/#vinedo")}
@@ -69,7 +69,7 @@ const MainNav = ({ isMobile, setIsMenuOpen }: MainNavProps) => {
             Viñedo
           </Link>
         </li>
-        <li className="hover:text-darkCustom/50 transition-colors">
+        <li className="hover:text-brownCustom transition-colors">
           <Link
             href="/#bodega"
             onClick={(e) => handleClick(e, "bodega", "/#bodega")}
@@ -77,7 +77,7 @@ const MainNav = ({ isMobile, setIsMenuOpen }: MainNavProps) => {
             Bodega
           </Link>
         </li>
-        <li className="hover:text-darkCustom/50 transition-colors">
+        <li className="hover:text-brownCustom transition-colors">
           <Link
             href="/#vinos"
             onClick={(e) => handleClick(e, "vinos", "/#vinos")}
@@ -85,7 +85,7 @@ const MainNav = ({ isMobile, setIsMenuOpen }: MainNavProps) => {
             Vinos
           </Link>
         </li>
-        <li className="hover:text-darkCustom/50 transition-colors">
+        <li className="hover:text-brownCustom transition-colors">
           <Link
             href="/#visitas"
             onClick={(e) => handleClick(e, "visitas", "/#visitas")}
@@ -93,10 +93,10 @@ const MainNav = ({ isMobile, setIsMenuOpen }: MainNavProps) => {
             Visitas
           </Link>
         </li>
-        <li className="hover:text-darkCustom/50 transition-colors">
+        <li className="hover:text-brownCustom transition-colors">
           <Link href="/contacto">Contacto</Link>
         </li>
-        <li className="hover:text-darkCustom/50 transition-colors">
+        <li className="hover:text-brownCustom transition-colors">
           <Link href="/tienda">Tienda online</Link>
         </li>
       </ul>

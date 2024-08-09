@@ -9,7 +9,7 @@ export interface Product {
   src: string;
   discount?: string;
   price: string;
-  stock: string;
+  stock: number;
   available: boolean;
   boxSize: string;
   user?: any; // Adjust this type according to your actual user type
@@ -21,6 +21,7 @@ export interface ShippingInfo {
   fullName: string;
   phone: string;
   email: string;
+  identification: string;
   address: string;
   apart?: string;
   city: string;

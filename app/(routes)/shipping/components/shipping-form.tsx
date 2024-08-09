@@ -31,12 +31,14 @@ import MultiSelect from "@/components/ui/multiple-select";
 
 const ShippingForm = () => {
   const setShippingInfo = useShippingStore((state) => state.setShippingInfo);
+  const shippingInfo = useShippingStore((state) => state.shippingInfo);
   const form = useFormContext();
 
   const isLoading = form.formState.isSubmitting;
 
-  const [isDifferentDeliveryAddress, setIsDifferentDeliveryAddress] =
-    useState(false);
+  const [isDifferentDeliveryAddress, setIsDifferentDeliveryAddress] = useState(
+    shippingInfo.deliveryAddress
+  );
 
   const handleInputChange = (name: FormFieldNames, value: any) => {
     setShippingInfo({ [name]: value });
@@ -45,7 +47,7 @@ const ShippingForm = () => {
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
     setIsDifferentDeliveryAddress(checked);
-    handleInputChange("deliveryAddress", checked);
+    setShippingInfo({ deliveryAddress: checked });
   };
 
   return (

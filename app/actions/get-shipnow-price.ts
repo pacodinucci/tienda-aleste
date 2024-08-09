@@ -5,7 +5,6 @@ const URL = "https://api.shipnow.com.ar";
 const apiToken = "cc5ghy7uhqYujQQ9cNZ8EHppeQO3VYmpdItx9HwgXSowIN4pNw";
 
 const getShipnowPrice = async (weight: Number, zip_code: Number) => {
-  console.log(process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
   const response = await axios(
     `${URL}/shipping_options?weight=${weight}&to_zip_code=${zip_code}&types=ship_pap`,
     {

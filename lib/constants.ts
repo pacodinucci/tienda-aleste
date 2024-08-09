@@ -35,3 +35,9 @@ export const days = [
 ];
 
 export const time = ["8 a 12 hs", "12 a 18 hs", "8 a 18 hs"];
+
+export const wineTypes = ["Tinto", "Blanco", "Rosado", "Espumante"];
+
+export const boxes = ["2", "4", "6"];
+
+export const discounts = ["0", "5", "10", "15", "20", "25", "30"];
