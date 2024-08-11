@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 
 import Navbar from "@/components/navbar";
 import Steps from "@/components/steps";
@@ -7,6 +9,15 @@ import CartItems from "@/components/cart-items";
 import CartTotals from "@/components/cart-totals";
 
 const CartPage = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />

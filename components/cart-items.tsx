@@ -56,7 +56,7 @@ const CartItems = (props: Props) => {
                 <p className="w-80">{item.title}</p>
               </div>
               <div className="flex justify-between items-center w-96">
-                <div className="flex items-center py-1 px-2 border-2 border-slate-400 text-slate-400 h-7">
+                <div className="flex items-center py-1 px-2 border-2 border-midBrownCustom text-slate-400 h-7">
                   <button
                     onClick={() => updateCartItem(item.id, item.quantity - 1)}
                   >
