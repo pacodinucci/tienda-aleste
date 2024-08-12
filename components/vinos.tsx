@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 
 const VinosSection = () => {
   return (
-    <div className="h-screen md:h-full flex flex-col md:flex-row px-6 pt-10 relative">
+    <div className="h-screen md:h-full flex flex-col md:flex-row px-2 md:px-6 pt-10 relative">
       {/* Contenido para pantallas grandes */}
       <div
         className={`${montserrat.className} hidden md:flex w-1/2 bg-darkCustom text-white text-lg p-12 flex-col gap-y-6 justify-center items-center`}

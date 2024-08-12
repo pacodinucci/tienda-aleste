@@ -10,7 +10,7 @@ const BodegaSection = () => {
   return (
     <div
       ref={ref}
-      className="relative h-screen md:h-full pt-10 md:pt-24 px-6 flex flex-col md:flex-row overflow-x-hidden"
+      className="relative h-screen md:h-full pt-10 md:pt-24 px-2 md:px-6 flex flex-col md:flex-row overflow-x-hidden"
     >
       <motion.h1
         className={`${oswald.className} hidden md:block absolute top-36 left-10 text-white uppercase text-5xl z-20 bg-cuero px-4 py-4`}

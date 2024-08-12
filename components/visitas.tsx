@@ -5,8 +5,8 @@ import { montserrat } from "@/lib/fonts";
 
 const VisitasSection = () => {
   return (
-    <div className="mx-6">
-      <div className="relative w-full h-screen mt-28">
+    <div className="mx-2 md:mx-6">
+      <div className="relative w-full h-screen mt-16">
         <Image
           src="/bodeganoche.webp"
           alt="bodega al este"

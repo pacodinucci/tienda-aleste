@@ -110,7 +110,7 @@ const TerroirSection = () => {
         <p>
           Amplitud térmica: las temperaturas promedio oscilan entre los 33°C y
           los 16°C, está dada por el tipo de suelo, los suelos arenosos se
-          capentan mucho durante el día y se enfrían rápidamente durante la
+          calientan mucho durante el día y se enfrían rápidamente durante la
           noche.
         </p>
         <p>

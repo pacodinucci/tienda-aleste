@@ -10,7 +10,7 @@ const VisionSection = () => {
   return (
     <div
       ref={ref}
-      className="h-screen mx-6 flex flex-col md:flex-row relative overflow-x-hidden"
+      className="h-screen mx-2 md:mx-6 mt-16 flex flex-col md:flex-row relative overflow-x-hidden"
     >
       <motion.div
         className="absolute inset-0 h-full w-full md:hidden"

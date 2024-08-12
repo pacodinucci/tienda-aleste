@@ -13,6 +13,9 @@ import BodegaSection from "@/components/bodega";
 import VinosSection from "@/components/vinos";
 import VideoSection from "@/components/video";
 import VisitasSection from "@/components/visitas";
+import SectionComponent from "@/components/section-component";
+import { terroirSection, vinedoSection } from "@/lib/constants";
+import Footer from "@/components/footer";
 
 export default function Home() {
   const [isChecked, setIsChecked] = useState(false);
@@ -81,10 +84,12 @@ export default function Home() {
         <VisionSection />
       </section>
       <section id="terroir" className="h-screen snap-start overflow-hidden">
-        <TerroirSection />
+        {/* <TerroirSection /> */}
+        <SectionComponent data={terroirSection} />
       </section>
       <section id="vinedo" className="h-screen snap-start">
         <VinedoSection />
+        {/* <SectionComponent data={vinedoSection} reverse /> */}
       </section>
       <section id="bodega" className="h-screen snap-start">
         <BodegaSection />
@@ -97,6 +102,9 @@ export default function Home() {
       </section>
       <section id="visitas" className="h-screen snap-start">
         <VisitasSection />
+      </section>
+      <section className="h-auto snap-start">
+        <Footer />
       </section>
     </main>
   );

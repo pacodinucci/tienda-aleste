@@ -10,7 +10,7 @@ const VinedoSection = () => {
   return (
     <div
       ref={ref}
-      className="h-screen mx-6 flex flex-col mt-16 md:flex-row relative overflow-x-hidden"
+      className="h-screen mx-2 md:mx-6 flex flex-col mt-16 md:flex-row relative overflow-x-hidden"
     >
       <motion.div
         className="absolute inset-0 h-full w-full md:hidden"

@@ -49,7 +49,7 @@ const Landing: React.FC<LandingProps> = ({
           <BarLoader color="#ffffff" />
         </div>
       )}
-      <div className="absolute inset-0 mx-6 mb-6">
+      <div className="absolute inset-0 mx-2 md:mx-6 mb-0 md:mb-6">
         <Image
           src="/brotes.webp"
           alt="brotes al este"
@@ -59,7 +59,7 @@ const Landing: React.FC<LandingProps> = ({
         />
       </div>
       <div
-        className={`absolute inset-0 bg-darkCustom opacity-40 mx-6 mb-6 ${
+        className={`absolute inset-0 bg-darkCustom opacity-40 mx-2 md:mx-6 mb-0 md:mb-6 ${
           isBackgroundLoaded ? "block" : "hidden"
         }`}
       />
