@@ -130,10 +130,10 @@ export async function POST(
       },
       auto_return: "approved",
       back_urls: {
-        success: `https://amused-grizzly-presently.ngrok-free.app?success=1`,
-        failure: `https://amused-grizzly-presently.ngrok-free.app?canceled=1`,
+        success: `https://aleste.vercel.app?success=1`,
+        failure: `https://aleste.vercel.app?canceled=1`,
       },
-      notification_url: `https://amused-grizzly-presently.ngrok-free.app/api/notify`,
+      notification_url: `https://aleste.vercel.app/api/notify`,
     };
     const response = await mercadopago.preferences.create(preference);
 
