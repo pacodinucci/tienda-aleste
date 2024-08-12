@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Product } from "@prisma/client";
 import useCartStore from "@/hooks/use-cart-store";
 
-interface TiendaCarouselProps {
+export interface TiendaCarouselProps {
   products: Product[];
 }
 
@@ -51,7 +51,7 @@ const TiendaCarousel: React.FC<TiendaCarouselProps> = ({ products }) => {
   };
 
   return (
-    <div className="relative group">
+    <div className="relative group hidden md:block">
       <button
         onClick={handlePrev}
         className={`absolute left-0 top-1/2 transform -translate-y-1/2 bg-midBrownCustom text-white p-2 z-10 opacity-0 ${
