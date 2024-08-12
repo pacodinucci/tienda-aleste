@@ -22,6 +22,7 @@ const Landing: React.FC<LandingProps> = ({
 }) => {
   const [isBackgroundLoaded, setIsBackgroundLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isShortScreen, setIsShortScreen] = useState(false);
 
   const handleImageLoad = () => {
     setIsBackgroundLoaded(true);
@@ -31,9 +32,21 @@ const Landing: React.FC<LandingProps> = ({
     setIsChecked(event.target.checked);
   };
 
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setIsMobile(window.innerWidth < 768);
+  //   };
+
+  //   handleResize(); // Check on initial render
+  //   window.addEventListener("resize", handleResize);
+
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
+      setIsShortScreen(window.innerHeight < 600);
     };
 
     handleResize(); // Check on initial render
@@ -43,7 +56,11 @@ const Landing: React.FC<LandingProps> = ({
   }, []);
 
   return (
-    <section className="h-screen snap-start flex flex-col pt-32 md:flex-row">
+    <section
+      className={`h-screen snap-start flex flex-col ${
+        isShortScreen ? "pt-6" : "pt-32"
+      } md:flex-row`}
+    >
       {!isBackgroundLoaded && (
         <div className="absolute inset-0 flex items-center justify-center bg-darkCustom z-50">
           <BarLoader color="#ffffff" />

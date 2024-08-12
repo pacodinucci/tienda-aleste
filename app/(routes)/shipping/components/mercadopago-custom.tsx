@@ -7,10 +7,18 @@ const MercadoPagoCustom = () => {
     <div className="flex flex-col md:w-3/4 mx-auto gap-y-4 bg-white p-4 rounded-sm">
       <div className="flex justify-center gap-x-4">
         <Image
-          src="/logo-mercadopago.webp"
+          src="/logo-mp.png"
           alt="logo mercado pago"
           width={70}
           height={0}
+          className="hidden md:block"
+        />
+        <Image
+          src="/logo-mp.png"
+          alt="logo mercado pago"
+          width={100}
+          height={0}
+          className="md:hidden block"
         />
         <p className="tracking-normal text-base">Pago seguro con MercadoPago</p>
       </div>
