@@ -98,7 +98,7 @@ const SectionComponent: React.FC<SectionComponentProps> = ({
           />
         </div>
         {/* Sección del Texto */}
-        <div className="relative z-10 bg-darkCustom/30 px-8 py-16 text-white flex flex-col gap-y-6 h-full">
+        <div className="relative z-10 bg-darkCustom/30 px-8 py-8 text-white flex flex-col gap-y-6 h-full">
           <h2
             className={`${oswald.className} text-white uppercase text-4xl text-center z-20 py-4`}
           >

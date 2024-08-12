@@ -30,7 +30,7 @@ const Footer = () => {
             height={0}
           />
         </div>
-        <div className="w-96 flex flex-col gap-y-2">
+        <div className="w-[80vw] md:w-[25vw] flex flex-col gap-y-2">
           <p
             className={`${montserrat.className} text-sm font-medium text-darkCustom tracking-wide`}
           >

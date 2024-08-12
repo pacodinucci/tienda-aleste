@@ -40,11 +40,11 @@ const VisionSection = () => {
             mapa vitivinícola mundial una nueva región argentina productora de
             vinos de alta calidad.
           </p>
-          <p>
+          <p className="hidden md:block">
             Durante muchos años rigieron disposiciones proteccionistas que
             prohibían producir uva y vino en la Provincia de Buenos Aires. ​​
           </p>
-          <p>
+          <p className="hidden md:block">
             El 1 de diciembre del año 2000 iniciamos nuestra explotación y fue
             ese día cuando la Provincia de Buenos Aires rompió con 63 años de
             prohibición.
