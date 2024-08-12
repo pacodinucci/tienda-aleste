@@ -31,6 +31,7 @@ const config = {
         brownCustom: "#DBCEBE",
         darkCustom: "#331F07",
         midBrownCustom: "#A8947B",
+        darkLogos: "#32444A",
         shade: "#3D3A35",
         cuero: "#422E16",
         border: "hsl(var(--border))",
