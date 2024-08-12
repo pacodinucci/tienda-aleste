@@ -14,7 +14,7 @@ import { montserrat, oswald } from "@/lib/fonts";
 
 const Footer = () => {
   return (
-    <div className="bg-midBrownCustom h-96 px-20 flex gap-x-24 text-white mt-16">
+    <div className="bg-midBrownCustom md:h-96 md:px-20 flex flex-col md:flex-row gap-x-24 text-white mt-16">
       <div className="flex flex-col gap-y-10 pt-8 px-4">
         <div className="flex gap-y-4">
           <Image
