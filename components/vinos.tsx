@@ -58,7 +58,7 @@ const VinosSection = () => {
         <div
           className={`${montserrat.className} absolute inset-0 bg-darkCustom bg-opacity-60 text-white text-lg p-12 flex flex-col gap-y-6 justify-center items-center`}
         >
-          <p className="hidden md:block">
+          {/* <p className="hidden md:block">
             En los comienzos, el reconocido enólogo italiano, Alberto Antonini
             fue quien estableció los primeros parámetros para la elaboración de
             los vinos de Al Este, escuela que se ha internalizado y que continúa
@@ -78,11 +78,10 @@ const VinosSection = () => {
             Cárdenas. La pasión y el trabajo de todo el equipo de Al Este
             potenciados por las cualidades y características del terroir se ven
             reflejados en nuestros vinos.
-          </p>
-          <p className="md:hidden block">
-            Actualmente, los vinos son eleborados con la visión de Daniel Di
-            Nucci, fundador de la bodega, y la supervisión del enólogo César
-            Cárdenas.
+          </p> */}
+          <p>
+            Los vinos son eleborados con la visión de Daniel Di Nucci, fundador
+            de la bodega, y la supervisión del enólogo César Cárdenas.
           </p>
           <p>
             Para conocer en detalle nuestros vinos, podés visitar nuestra tienda
