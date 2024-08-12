@@ -16,6 +16,7 @@ import VisitasSection from "@/components/visitas";
 import SectionComponent from "@/components/section-component";
 import { terroirSection, vinedoSection } from "@/lib/constants";
 import Footer from "@/components/footer";
+import MobileCart from "@/components/mobile-cart";
 
 export default function Home() {
   const [isChecked, setIsChecked] = useState(false);
@@ -106,6 +107,7 @@ export default function Home() {
       <section className="h-auto snap-start">
         <Footer />
       </section>
+      <MobileCart />
     </main>
   );
 }

@@ -12,7 +12,7 @@ const TiendaPage = async () => {
   return (
     <div className="min-h-screen">
       {/* <Navbar /> */}
-      <div className="w-full h-[40vh] relative">
+      <div className="w-full h-[25vh] md:h-[40vh] relative">
         <Image
           src="/fondocava.png"
           alt="cava medanos al este"

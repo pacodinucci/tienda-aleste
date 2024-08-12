@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import MobileCart from "@/components/mobile-cart";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
         <body className={inter.className}>
           {children}
           <Toaster richColors />
+          <MobileCart />
         </body>
       </html>
     </ClerkProvider>

@@ -11,6 +11,9 @@ import { TiendaCarouselProps } from "./carousel";
 
 const MobileCarousel: React.FC<TiendaCarouselProps> = ({ products }) => {
   const addToCart = useCartStore((state) => state.addToCart);
+  const cart = useCartStore((state) => state.cart);
+
+  console.log(cart);
 
   const handleAddToCart = (product: Product) => {
     const cartProduct = {
@@ -42,7 +45,7 @@ const MobileCarousel: React.FC<TiendaCarouselProps> = ({ products }) => {
               className="cursor-pointer hover:scale-125 transition-all duration-500"
             />
             {item.discount !== "0" && (
-              <span className="w-16 h-16 flex items-center justify-center p-3 rounded-full text-white font-medium absolute top-5 left-5 bg-gradient-to-r from-amber-600 to-orange-800">
+              <span className="w-16 h-16 ml-16 flex items-center justify-center p-3 rounded-full text-white font-medium absolute top-5 left-5 bg-gradient-to-r from-amber-600 to-orange-800">
                 {item.discount}% OFF
               </span>
             )}
