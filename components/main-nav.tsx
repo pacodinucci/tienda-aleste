@@ -53,6 +53,14 @@ const MainNav = ({ isMobile, setIsMenuOpen }: MainNavProps) => {
           isMobile ? "flex-col gap-y-6 text-2xl" : "flex-row"
         } gap-x-8 uppercase items-center text-white tracking-wide`}
       >
+        <li className="hover:text-brownCustom transition-colors md:hidden">
+          <Link
+            href="/"
+            // onClick={(e) => handleClick(e, "terroir", "/#terroir")}
+          >
+            Home
+          </Link>
+        </li>
         <li className="hover:text-brownCustom transition-colors">
           <Link
             href="/#terroir"

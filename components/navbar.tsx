@@ -8,8 +8,10 @@ import { ShoppingBag, AlignJustify, CircleArrowLeft } from "lucide-react";
 import MainNav from "./main-nav";
 import SemiCart from "./semicart";
 import useCartStore from "@/hooks/use-cart-store";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -111,7 +113,7 @@ const Navbar = () => {
             <div onClick={toggleMenu}>
               <AlignJustify className="text-white w-25 mx-2 cursor-pointer" />
             </div>
-            <div>
+            <div onClick={() => router.push("/")}>
               <Image
                 src="/logogaviotas.svg"
                 alt="logo bodega al este"

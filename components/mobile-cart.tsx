@@ -19,7 +19,7 @@ const MobileCart = () => {
 
   return (
     <div
-      className="fixed bottom-5 right-5 md:hidden bg-green-900 text-white p-3 rounded-full shadow-lg flex items-center justify-center"
+      className="fixed bottom-5 right-5 md:hidden bg-green-900 text-white p-3 rounded-full shadow-lg flex items-center justify-center z-50"
       onClick={() => router.push("/cart")}
     >
       <ShoppingCart size={24} className="mr-2" />

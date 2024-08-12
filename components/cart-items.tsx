@@ -56,11 +56,12 @@ const CartItems = (props: Props) => {
                 <p className="w-80">{item.title}</p>
               </div>
               <div className="flex justify-between items-center w-96">
-                <div className="flex items-center py-1 px-2 border-2 border-midBrownCustom text-slate-400 h-7">
+                <div className="flex items-center ml-4 md:ml-0 py-2 px-3 md:py-1 md:px-2 border-2 border-midBrownCustom text-slate-400 h-9 md:h-7">
                   <button
                     onClick={() => updateCartItem(item.id, item.quantity - 1)}
                   >
-                    <Minus size={15} />
+                    <Minus size={20} className="md:size-[15px]" />{" "}
+                    {/* Icono más grande en pantallas móviles */}
                   </button>
                   <input
                     min="0"
@@ -68,13 +69,14 @@ const CartItems = (props: Props) => {
                     onChange={(e) =>
                       updateCartItem(item.id, Number(e.target.value))
                     }
-                    className="text-slate-500 dark:text-white border-0 bg-transparent text-xs font-normal focus:outline-none focus:ring-0 max-w-[2rem] text-center"
+                    className="text-slate-500 dark:text-white border-0 bg-transparent text-sm md:text-xs font-normal focus:outline-none focus:ring-0 max-w-[2rem] text-center"
                     style={{ MozAppearance: "textfield" }}
                   />
                   <button
                     onClick={() => updateCartItem(item.id, item.quantity + 1)}
                   >
-                    <Plus size="15" />
+                    <Plus size={20} className="md:size-[15px]" />{" "}
+                    {/* Icono más grande en pantallas móviles */}
                   </button>
                 </div>
                 <div className="mr-10 text-right">
