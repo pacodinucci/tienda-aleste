@@ -22,13 +22,13 @@ const CartPage = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <Steps />
-      <div className="px-10">
+      <div className="px-5 md:px-10">
         <h1
           className={`${oswald.className} uppercase text-4xl text-neutral-800`}
         >
           Carrito
         </h1>
-        <div className="flex gap-x-12">
+        <div className="flex flex-col md:flex-row gap-12">
           <CartItems />
           <CartTotals />
         </div>

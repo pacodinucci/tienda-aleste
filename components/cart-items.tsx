@@ -23,7 +23,7 @@ const CartItems = (props: Props) => {
 
   return (
     <div className={`${montserrat.className} flex-1`}>
-      <div className="border-b-2 border-slate-200 flex justify-between py-6 text-neutral-800 font-semibold">
+      <div className="hidden border-b-2 border-slate-200 md:flex justify-between py-6 text-neutral-800 font-semibold">
         <p className="ml-5">Producto</p>
         <div className="flex justify-between w-96">
           <p>Cantidad</p>
@@ -44,7 +44,7 @@ const CartItems = (props: Props) => {
           return (
             <div
               key={item.id}
-              className="flex justify-between px-2 py-4 items-center border-b border-dashed border-slate-300 relative"
+              className="flex flex-col md:flex-row gap-y-2 justify-between px-2 py-4 items-center border-b border-dashed border-slate-300 relative"
             >
               <div className="flex items-center">
                 <Image

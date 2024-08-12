@@ -121,7 +121,7 @@ const Summary = () => {
   ];
 
   return (
-    <div className="h-full p-4 space-y-2 max-w-4xl pl-6 pr-24 relative">
+    <div className="h-full p-4 space-y-2 max-w-4xl md:pl-6 md:pr-24 relative">
       <h2
         className={`${oswald.className} text-neutral-700 text-3xl tracking-wide px-6 py-4 mb-4 uppercase`}
       >

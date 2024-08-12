@@ -51,7 +51,11 @@ const AccordionRadioGroup: React.FC<AccordionRadioGroupProps> = ({
                   <span className="w-2 h-2 bg-white rounded-full"></span>
                 )}
               </span>
-              <span>
+              <span
+                className={`${
+                  selectedValue === option.value ? "font-semibold" : ""
+                }`}
+              >
                 {option.label}
                 {option.discount && (
                   <span className="text-gray-500 ml-2">{option.discount}</span>

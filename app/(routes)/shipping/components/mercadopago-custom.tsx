@@ -4,7 +4,7 @@ import { Lock } from "lucide-react";
 
 const MercadoPagoCustom = () => {
   return (
-    <div className="flex flex-col w-3/4 mx-auto gap-y-4 bg-white p-4 rounded-sm">
+    <div className="flex flex-col md:w-3/4 mx-auto gap-y-4 bg-white p-4 rounded-sm">
       <div className="flex justify-center gap-x-4">
         <Image
           src="/logo-mercadopago.webp"
@@ -21,8 +21,8 @@ const MercadoPagoCustom = () => {
         </p>
       </div>
       <div className="flex gap-x-4 bg-slate-100 rounded-sm p-4">
-        <Lock />
-        <p className="text-xs">
+        <Lock className="w-8 h-8 md:w-5 md:h-5" />
+        <p className="md:text-xs">
           Al continuar, te llevaremos a MercadoPago para completar tu compra de
           forma segura.
         </p>

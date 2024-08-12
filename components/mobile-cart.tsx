@@ -5,13 +5,15 @@ import { ShoppingCart } from "lucide-react";
 
 import useCartStore from "@/hooks/use-cart-store";
 import { montserrat } from "@/lib/fonts";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 const MobileCart = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const cart = useCartStore((state) => state.cart);
 
-  if (cart.length === 0) {
+  const hiddenPaths = ["/cart", "/shipping", "/confirmation"];
+  if (cart.length === 0 || hiddenPaths.includes(pathname)) {
     return null;
   }
 

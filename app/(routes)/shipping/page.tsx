@@ -24,7 +24,7 @@ const ShippingPage = () => {
       <Navbar />
       <Steps />
       <FormProvider>
-        <div className="flex-1 flex mb-24">
+        <div className="flex-1 flex flex-col md:flex-row mb-24">
           <div className="flex-1 flex flex-col border-r border-gray-300">
             <ShippingForm />
           </div>

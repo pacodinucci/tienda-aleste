@@ -51,7 +51,7 @@ const ShippingForm = () => {
   };
 
   return (
-    <div className="h-full p-4 space-y-2 max-w-4xl pl-6 pr-24">
+    <div className="h-full p-4 space-y-2 max-w-4xl pl-6 md:pr-24">
       <h2
         className={`${oswald.className} text-neutral-700 text-3xl tracking-wide py-4 mb-4 uppercase`}
       >
