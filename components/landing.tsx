@@ -32,17 +32,6 @@ const Landing: React.FC<LandingProps> = ({
     setIsChecked(event.target.checked);
   };
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setIsMobile(window.innerWidth < 768);
-  //   };
-
-  //   handleResize(); // Check on initial render
-  //   window.addEventListener("resize", handleResize);
-
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);

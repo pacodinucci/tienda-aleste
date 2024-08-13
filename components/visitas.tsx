@@ -1,9 +1,26 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { montserrat } from "@/lib/fonts";
 
 const VisitasSection = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [isShortScreen, setIsShortScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsShortScreen(window.innerHeight < 600);
+    };
+
+    handleResize(); // Check on initial render
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="mx-2 md:mx-6">
       <div className="relative w-full h-screen mt-16">
@@ -14,7 +31,9 @@ const VisitasSection = () => {
           objectFit="cover"
         />
         <div className="absolute inset-0 bg-black opacity-60" />
-        <div className="hidden md:flex absolute top-44 right-40 w-[40%] p-10 flex-col gap-y-6">
+        <div
+          className={`hidden md:flex absolute top-44 right-40 w-[40%] p-10 flex-col gap-y-6`}
+        >
           <p
             className={`${montserrat.className} text-white text-lg tracking-wide leading-8`}
           >
@@ -29,7 +48,11 @@ const VisitasSection = () => {
             Contacto
           </Button>
         </div>
-        <div className="md:hidden flex w-[80%] flex-col gap-y-6 absolute top-52 left-10 space-y-6">
+        <div
+          className={`md:hidden flex w-[80%] flex-col gap-y-6 absolute ${
+            isShortScreen ? "top-20" : "top-52"
+          } left-10 space-y-6`}
+        >
           <p
             className={`${montserrat.className} text-white text-lg tracking-wide leading-8`}
           >

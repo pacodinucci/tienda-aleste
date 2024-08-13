@@ -1,11 +1,27 @@
+"use client";
+
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { montserrat, oswald } from "@/lib/fonts";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const BodegaSection = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [isShortScreen, setIsShortScreen] = useState(false);
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, margin: "0px 0px -80% 0px" });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsShortScreen(window.innerHeight < 600);
+    };
+
+    handleResize(); // Check on initial render
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div
@@ -105,7 +121,11 @@ const BodegaSection = () => {
             inoxidable para fermentación y crianza, sala de barricas de roble y
             estiba de botellas.
           </p>
-          <p className={`${montserrat.className}`}>
+          <p
+            className={`${montserrat.className} ${
+              isShortScreen ? "hidden" : ""
+            }`}
+          >
             Se complementa con prensa neumática, despalilladora, moledora y
             fraccionadora.
           </p>

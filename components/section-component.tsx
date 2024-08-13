@@ -1,4 +1,6 @@
-import React, { useRef } from "react";
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 
@@ -19,6 +21,8 @@ const SectionComponent: React.FC<SectionComponentProps> = ({
   data,
   reverse = false,
 }) => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [isShortScreen, setIsShortScreen] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
@@ -30,6 +34,18 @@ const SectionComponent: React.FC<SectionComponentProps> = ({
     once: true,
     margin: "0px 0px -50% 0px",
   });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsShortScreen(window.innerHeight < 600);
+    };
+
+    handleResize(); // Check on initial render
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div>
@@ -107,9 +123,11 @@ const SectionComponent: React.FC<SectionComponentProps> = ({
           <div
             className={`text-white text-lg tracking-wide leading-8 flex flex-col gap-y-4 ${montserrat.className}`}
           >
-            {data.text.slice(0, 2).map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
+            {data.text
+              .slice(0, isShortScreen ? 1 : 2)
+              .map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
           </div>
         </div>
       </motion.div>
