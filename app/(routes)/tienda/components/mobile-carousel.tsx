@@ -23,6 +23,7 @@ const MobileCarousel: React.FC<TiendaCarouselProps> = ({ products }) => {
       quantity: 1,
       boxSize: product.boxSize,
       discount: product.discount,
+      weight: product.weight,
       src: product.src,
     };
 

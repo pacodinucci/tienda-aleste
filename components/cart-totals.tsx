@@ -1,15 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { MoonLoader } from "react-spinners";
 
-import { Button } from "./ui/button";
+import getShipnowPrice from "@/app/actions/get-shipnow-price";
 import useCartStore from "@/hooks/use-cart-store";
 import { montserrat, oswald } from "@/lib/fonts";
+import { calculateWeight } from "@/lib/helpers";
+import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import getShipnowPrice from "@/app/actions/get-shipnow-price";
-import { useRouter } from "next/navigation";
 
 const CartTotals = () => {
   const router = useRouter();
@@ -18,6 +19,11 @@ const CartTotals = () => {
   const [showShippingForm, setShowShippingForm] = useState(false);
   const [zipCode, setZipCode] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Resetea el precio de envío a null cuando cambie el carrito
+    setShippingPrice(null);
+  }, [cart]);
 
   const formatNumber = (number: number): string => {
     return new Intl.NumberFormat("es-AR", {
@@ -46,10 +52,20 @@ const CartTotals = () => {
     return subtotal + (shippingPrice || 0);
   };
 
+  // const calculateWeight = () => {
+  //   return cart.reduce((totalWeight, product) => {
+  //     const weight = Number(product.weight);
+  //     const quantity = product.quantity;
+
+  //     return totalWeight + weight * quantity;
+  //   }, 0);
+  // };
+
   const onShippingPriceClick = async () => {
     if (zipCode && zipCode.length >= 4) {
       setLoading(true);
-      const price = await getShipnowPrice(11900, Number(zipCode));
+      const weight = calculateWeight(cart);
+      const price = await getShipnowPrice(weight, Number(zipCode));
       setShippingPrice(price);
       setLoading(false);
     } else {

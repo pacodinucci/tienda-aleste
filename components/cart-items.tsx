@@ -8,10 +8,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { montserrat, oswald } from "@/lib/fonts";
 import useCartStore from "@/hooks/use-cart-store";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
 const CartItems = (props: Props) => {
+  const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
   const [isShortScreen, setIsShortScreen] = useState(false);
   const { cart, removeFromCart, updateCartItem } = useCartStore();
@@ -27,6 +29,13 @@ const CartItems = (props: Props) => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    if (cart.length === 0) {
+      router.push("/tienda");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart]);
 
   const formatNumber = (number: number): string => {
     return new Intl.NumberFormat("es-AR", {

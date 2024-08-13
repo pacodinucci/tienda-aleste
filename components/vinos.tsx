@@ -55,6 +55,7 @@ const VinosSection = () => {
         </p>
         <Button
           className={`${montserrat.className} rounded-none hover:bg-midBrownCustom/80 self-start bg-midBrownCustom uppercase tracking-wide text-bas`}
+          onClick={() => router.push("/tienda")}
         >
           Ir a la tienda online
         </Button>

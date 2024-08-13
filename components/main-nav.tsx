@@ -102,7 +102,7 @@ const MainNav = ({ isMobile, setIsMenuOpen }: MainNavProps) => {
           </Link>
         </li>
         <li className="hover:text-brownCustom transition-colors">
-          <Link href="/contacto">Contacto</Link>
+          <Link href="/contact">Contacto</Link>
         </li>
         <li className="hover:text-brownCustom transition-colors">
           <Link href="/tienda">Tienda online</Link>

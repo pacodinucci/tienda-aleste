@@ -30,16 +30,16 @@ const BodegaSection = () => {
     >
       <motion.h1
         className={`${oswald.className} hidden md:block absolute top-36 left-10 text-white uppercase text-5xl z-20 bg-cuero px-4 py-4`}
-        initial={{ x: -100, opacity: 1 }}
-        animate={isInView ? { x: 0, opacity: 1 } : {}}
+        initial={{ y: -100, opacity: 1 }}
+        animate={isInView ? { y: 0, opacity: 1 } : {}}
         transition={{ duration: 0.8 }}
       >
         Bodega
       </motion.h1>
       <motion.div
         className={`hidden md:flex bg-darkCustom/80 absolute bottom-10 right-10 text-white text-lg px-10 py-12 w-[70%] z-10 tracking-wide leading-8 flex-col gap-y-4 ${montserrat.className}`}
-        initial={{ x: -100, opacity: 0 }}
-        animate={isInView ? { x: 0, opacity: 1 } : {}}
+        initial={{ y: -100, opacity: 0 }}
+        animate={isInView ? { y: 0, opacity: 1 } : {}}
         transition={{ duration: 0.8 }}
       >
         <p>

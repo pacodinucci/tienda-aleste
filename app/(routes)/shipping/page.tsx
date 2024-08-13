@@ -7,6 +7,7 @@ import Steps from "@/components/steps";
 import Summary from "./components/summary";
 import Navbar from "@/components/navbar";
 import { FormProvider } from "@/context/shipping-form-context";
+import Footer from "@/components/footer";
 
 const ShippingPage = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -33,6 +34,7 @@ const ShippingPage = () => {
           </div>
         </div>
       </FormProvider>
+      <Footer />
     </div>
   );
 };

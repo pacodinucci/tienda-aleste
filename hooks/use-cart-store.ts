@@ -5,6 +5,7 @@ export interface CartProduct {
   title: string;
   price: string;
   quantity: number;
+  weight: string;
   [key: string]: any;
 }
 
@@ -24,8 +25,8 @@ const useCartStore = create<CartStoreProps>((set) => ({
   cart: [],
   isCartOpen: false,
   toggleCart: () => set((state) => ({ isCartOpen: !state.isCartOpen })),
-  setCartOpen: () => set({ isCartOpen: true }), // Implementación de la acción para abrir el carrito
-  setCartClose: () => set({ isCartOpen: false }), // Implementación de la acción para cerrar el carrito
+  setCartOpen: () => set({ isCartOpen: true }),
+  setCartClose: () => set({ isCartOpen: false }),
   addToCart: (product) =>
     set((state) => {
       const existingProduct = state.cart.find((item) => item.id === product.id);

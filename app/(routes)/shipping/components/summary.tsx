@@ -2,23 +2,23 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { montserrat, oswald } from "@/lib/fonts";
+import { toast } from "sonner";
+import axios from "axios";
+
 import useCartStore from "@/hooks/use-cart-store";
-import { Minus, Plus } from "lucide-react";
+import getShipnowPrice from "@/app/actions/get-shipnow-price";
+import { montserrat, oswald } from "@/lib/fonts";
+import { calculateWeight } from "@/lib/helpers";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { CartProduct } from "@/hooks/use-cart-store";
 import { useShippingStore } from "@/hooks/use-shipping-store";
 import { useFormContext } from "@/context/shipping-form-context";
 import AccordionRadioGroup from "@/components/ui/accordion-radio-group";
-import getShipnowPrice from "@/app/actions/get-shipnow-price";
-import { toast } from "sonner";
-import MercadoPagoBrandBrick from "./mercadopago-brick";
 import MercadoPagoCustom from "./mercadopago-custom";
-import axios from "axios";
 
 const Summary = () => {
-  const { cart, removeFromCart, updateCartItem } = useCartStore();
+  const { cart } = useCartStore();
   const { shippingInfo } = useShippingStore();
   const { handleSubmit } = useFormContext();
   const [shippingCost, setShippingCost] = useState<number | null>(null);
@@ -48,20 +48,31 @@ const Summary = () => {
   ]);
 
   const calculateSubtotal = (item: CartProduct) => {
-    return Number(item.price) * Number(item.boxSize) * item.quantity;
+    const price = Number(item.price);
+    const boxSize = Number(item.boxSize);
+    const quantity = item.quantity;
+    const discount = Number(item.discount || 0);
+
+    const discountedPrice = discount > 0 ? price * (1 - discount / 100) : price;
+
+    return discountedPrice * boxSize * quantity;
   };
 
   const calculateTotal = () => {
     return cart.reduce((total, product) => {
-      return (
-        total +
-        Number(product.price) * Number(product.boxSize) * product.quantity
-      );
+      return total + calculateSubtotal(product);
     }, 0);
   };
 
+  const calculateDiscount = () => {
+    const subtotal = calculateTotal();
+    return paymentMethod === "transferencia" ? subtotal * 0.1 : 0;
+  };
+
   const calculateTotalWithShipping = () => {
-    return calculateTotal() + (shippingCost || 0);
+    const subtotal = calculateTotal();
+    const discount = calculateDiscount();
+    return subtotal - discount + (shippingCost || 0);
   };
 
   const formatNumber = (number: number): string => {
@@ -158,6 +169,12 @@ const Summary = () => {
         >
           <p>Subtotal</p>
           <span>{formatNumber(calculateTotal())}</span>
+        </div>
+        <div
+          className={`${montserrat.className} flex justify-between gap-x-6 text-xl px-4 mt-2`}
+        >
+          <p>Descuento</p>
+          <span>{`(${formatNumber(calculateDiscount())})`}</span>
         </div>
         <div
           className={`${montserrat.className} flex justify-between items-center gap-x-6 text-xl px-4 mt-2`}
