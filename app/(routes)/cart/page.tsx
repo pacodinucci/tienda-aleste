@@ -7,6 +7,7 @@ import Steps from "@/components/steps";
 import { oswald } from "@/lib/fonts";
 import CartItems from "@/components/cart-items";
 import CartTotals from "@/components/cart-totals";
+import Footer from "@/components/footer";
 
 const CartPage = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -33,6 +34,7 @@ const CartPage = () => {
           <CartTotals />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

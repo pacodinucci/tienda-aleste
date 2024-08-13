@@ -26,8 +26,6 @@ const CartTotals = () => {
     }).format(number);
   };
 
-  console.log(cart);
-
   const calculateSubtotal = () => {
     return cart.reduce((total, product) => {
       const price = Number(product.price);
@@ -60,7 +58,7 @@ const CartTotals = () => {
   };
 
   return (
-    <div className="border-2 border-slate-300 h-auto w-96 p-6 flex flex-col justify-between gap-y-2">
+    <div className="border-2 border-slate-300 h-auto w-[90vw] md:w-96 p-6 flex flex-col justify-between gap-y-2">
       <h3 className={`${oswald.className} text-xl text-neutral-800`}>
         Totales del carrito
       </h3>

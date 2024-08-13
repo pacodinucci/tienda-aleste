@@ -1,13 +1,20 @@
 "use client";
 
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
+
 import { Button } from "./ui/button";
 import { montserrat } from "@/lib/fonts";
 
 const VisitasSection = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isShortScreen, setIsShortScreen] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: true,
+    margin: "0px 0px -50px 0px",
+  });
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,7 +29,13 @@ const VisitasSection = () => {
   }, []);
 
   return (
-    <div className="mx-2 md:mx-6">
+    <motion.div
+      ref={ref}
+      className="mx-2 md:mx-6"
+      initial={{ x: -100, opacity: 0 }}
+      animate={isInView ? { x: 0, opacity: 1 } : {}}
+      transition={{ duration: 0.8 }}
+    >
       <div className="relative w-full h-screen mt-16">
         <Image
           src="/bodeganoche.webp"
@@ -68,7 +81,7 @@ const VisitasSection = () => {
           </Button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

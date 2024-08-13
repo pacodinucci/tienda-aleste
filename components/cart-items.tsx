@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Minus, Plus, Trash2 } from "lucide-react";
 
@@ -12,7 +12,21 @@ import useCartStore from "@/hooks/use-cart-store";
 type Props = {};
 
 const CartItems = (props: Props) => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [isShortScreen, setIsShortScreen] = useState(false);
   const { cart, removeFromCart, updateCartItem } = useCartStore();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsShortScreen(window.innerHeight < 600);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const formatNumber = (number: number): string => {
     return new Intl.NumberFormat("es-AR", {
@@ -37,7 +51,6 @@ const CartItems = (props: Props) => {
           const quantity = item.quantity;
           const discount = Number(item.discount || 0);
 
-          // Calcula el precio con descuento si existe
           const discountedPrice =
             discount > 0 ? price * (1 - discount / 100) : price;
 
@@ -53,15 +66,18 @@ const CartItems = (props: Props) => {
                   width={40}
                   height={0}
                 />
-                <p className="w-80">{item.title}</p>
+                <p className="w-72 md:w-80">{item.title}</p>
               </div>
               <div className="flex justify-between items-center w-96">
-                <div className="flex items-center ml-4 md:ml-0 py-2 px-3 md:py-1 md:px-2 border-2 border-midBrownCustom text-slate-400 h-9 md:h-7">
+                <div
+                  className={`flex items-center ${
+                    isShortScreen ? "ml-10" : "ml-4"
+                  } md:ml-0 py-2 px-3 md:py-1 md:px-2 border-2 border-midBrownCustom text-slate-400 h-9 md:h-7`}
+                >
                   <button
                     onClick={() => updateCartItem(item.id, item.quantity - 1)}
                   >
                     <Minus size={20} className="md:size-[15px]" />{" "}
-                    {/* Icono más grande en pantallas móviles */}
                   </button>
                   <input
                     min="0"
@@ -76,7 +92,6 @@ const CartItems = (props: Props) => {
                     onClick={() => updateCartItem(item.id, item.quantity + 1)}
                   >
                     <Plus size={20} className="md:size-[15px]" />{" "}
-                    {/* Icono más grande en pantallas móviles */}
                   </button>
                 </div>
                 <div className="mr-10 text-right">
@@ -99,7 +114,7 @@ const CartItems = (props: Props) => {
                 </div>
                 <Trash2
                   className="absolute top-7 right-0 cursor-pointer text-neutral-800"
-                  size={15}
+                  size={isMobile ? 20 : 15}
                   onClick={() => removeFromCart(item.id)}
                 />
               </div>
