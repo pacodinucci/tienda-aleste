@@ -5,6 +5,7 @@ import { oswald } from "@/lib/fonts";
 import TiendaCarousel from "./components/carousel";
 import db from "@/lib/db";
 import MobileCarousel from "./components/mobile-carousel";
+import Banners from "./components/banners";
 
 const TiendaPage = async () => {
   const products = await db.product.findMany();
@@ -33,6 +34,7 @@ const TiendaPage = async () => {
         </h1>
         <TiendaCarousel products={products} />
         <MobileCarousel products={products} />
+        <Banners />
       </div>
     </div>
   );
