@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
 import * as Clerk from "@clerk/elements/common";
 import * as SignIn from "@clerk/elements/sign-in";
+import { montserrat, oswald } from "@/lib/fonts";
+import Image from "next/image";
 // import { SignIn } from "@clerk/nextjs";
 
 export default function SignInPage() {
@@ -19,38 +21,25 @@ export default function SignInPage() {
     }
   }, [isSignedIn, router, searchParams]);
 
-  //   return <SignIn.Root>[Sign In Root]</SignIn.Root>;
   return (
-    <div className="py-24">
+    <div className="py-48 h-screen bg-bottles bg-cover relative">
+      <div className="bg-black/40 absolute inset-0" />
       <div className="container flex items-center justify-center">
         <SignIn.Root>
           <SignIn.Step
             name="start"
             className="relative isolate w-full space-y-8 rounded-2xl bg-blue-950/80 px-4 py-10 shadow-md ring-1 ring-inset ring-white/10 before:absolute before:inset-0 before:-z-10 before:rounded-2xl before:bg-black/50 sm:w-96 sm:px-8"
           >
-            <header className="text-center">
-              {/* <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 40 40"
-                className="mx-auto size-10"
+            <header className="text-center flex justify-center items-center flex-col">
+              <Image
+                src="/logogaviotas.svg"
+                alt="logo al este"
+                width={100}
+                height={50}
+              />
+              <h1
+                className={`${montserrat.className} mt-4 text-xl font-medium tracking-tight text-white`}
               >
-                <mask
-                  id="a"
-                  width="40"
-                  height="40"
-                  x="0"
-                  y="0"
-                  maskUnits="userSpaceOnUse"
-                >
-                  <circle cx="20" cy="20" r="20" fill="#D9D9D9" />
-                </mask>
-                <g fill="#34D399" mask="url(#a)">
-                  <path d="M43.5 3a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46V2ZM43.5 8a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46V7ZM43.5 13a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46v-1ZM43.5 18a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46v-1ZM43.5 23a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46v-1ZM43.5 28a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46v-1ZM43.5 33a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46v-1ZM43.5 38a.5.5 0 0 0 0-1v1Zm0-1h-46v1h46v-1Z" />
-                  <path d="M27 3.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2ZM25 8.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2ZM23 13.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2ZM21.5 18.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2ZM20.5 23.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2ZM22.5 28.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2ZM25 33.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2ZM27 38.5a1 1 0 1 0 0-2v2Zm0-2h-46v2h46v-2Z" />
-                </g>
-              </svg> */}
-              <h1 className="mt-4 text-xl font-medium tracking-tight text-white">
                 Ingresar a Bodega Al Este
               </h1>
             </header>

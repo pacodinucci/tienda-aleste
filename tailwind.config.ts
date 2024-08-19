@@ -26,6 +26,7 @@ const config = {
       backgroundImage: {
         brotes: "url(/brotes.webp)",
         noche: "url(/bodeganoche.webp)",
+        bottles: "url(/botellas.png)",
       },
       colors: {
         brownCustom: "#DBCEBE",
