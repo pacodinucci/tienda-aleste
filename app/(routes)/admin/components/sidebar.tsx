@@ -38,7 +38,7 @@ export const Sidebar = () => {
     },
     {
       icon: Package,
-      href: "/package",
+      href: "/admin/orders",
       label: "Ordenes",
       pro: false,
     },

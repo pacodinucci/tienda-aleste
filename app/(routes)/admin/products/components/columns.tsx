@@ -11,7 +11,7 @@ export type ProductsColumn = {
   type: string;
   price: string;
   discount: string | undefined;
-  stock: string;
+  stock: number;
   category: string;
   src: string;
   available: boolean;
