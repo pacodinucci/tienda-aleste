@@ -8,12 +8,14 @@ import { montserrat } from "@/lib/fonts";
 import { Button } from "@/components/ui/button";
 import { Product } from "@prisma/client";
 import useCartStore from "@/hooks/use-cart-store";
+import { useRouter } from "next/navigation";
 
 export interface TiendaCarouselProps {
   products: Product[];
 }
 
 const TiendaCarousel: React.FC<TiendaCarouselProps> = ({ products }) => {
+  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const carouselRef = useRef(null);
 
@@ -96,7 +98,10 @@ const TiendaCarousel: React.FC<TiendaCarouselProps> = ({ products }) => {
                   </span>
                 )}
               </div>
-              <div className="text-center cursor-pointer">
+              <div
+                className="text-center cursor-pointer"
+                onClick={() => router.push(`/tienda/${item.id}`)}
+              >
                 <p
                   className={`${montserrat.className} w-56 min-h-12 hover:text-midBrownCustom`}
                 >
