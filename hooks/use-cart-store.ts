@@ -34,12 +34,12 @@ const useCartStore = create<CartStoreProps>((set) => ({
         return {
           cart: state.cart.map((item) =>
             item.id === product.id
-              ? { ...item, quantity: item.quantity + 1 }
+              ? { ...item, quantity: item.quantity + product.quantity } // Usa la cantidad del producto
               : item
           ),
         };
       } else {
-        return { cart: [...state.cart, { ...product, quantity: 1 }] };
+        return { cart: [...state.cart, product] }; // Usa el producto tal como es, incluida su cantidad
       }
     }),
   removeFromCart: (productId) =>

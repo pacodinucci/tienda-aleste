@@ -12,6 +12,7 @@ export interface Product {
   stock: number;
   available: boolean;
   boxSize: string;
+  weight: string;
   user?: any; // Adjust this type according to your actual user type
   updatedAt: Date;
   createdAt: Date;

@@ -1,8 +1,11 @@
+import { Separator } from "@/components/ui/separator";
 import db from "@/lib/db";
 import { montserrat } from "@/lib/fonts";
 import { formatNumber } from "@/lib/helpers";
+import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import AddToCartButton from "./components/add-to-cart-button";
 
 const ProductIdPage = async ({ params }: { params: { productId: string } }) => {
   const product = await db.product.findUnique({
@@ -10,6 +13,10 @@ const ProductIdPage = async ({ params }: { params: { productId: string } }) => {
       id: params.productId,
     },
   });
+
+  if (!product) {
+    return <p>Product not found</p>;
+  }
 
   const imageUrl = product?.src || "/bottleplaceholder.png";
 
@@ -24,7 +31,7 @@ const ProductIdPage = async ({ params }: { params: { productId: string } }) => {
             height={0}
           />
         </div>
-        <div className="min-w-[55vw]">
+        <div className="max-w-5xl flex-1 pr-24 space-y-8">
           <h1
             className={`${montserrat.className} text-neutral-700 text-4xl font-medium leading-15`}
           >
@@ -50,7 +57,21 @@ const ProductIdPage = async ({ params }: { params: { productId: string } }) => {
               {formatNumber(Number(product?.price) * Number(product?.boxSize))}
             </p>
           )}
-          <p>{product?.description}</p>
+          <Separator />
+          <div className={`${montserrat.className} tracking-wide leading-6`}>
+            <p>
+              La caja incluye {product?.boxSize} botellas de {product?.title} de{" "}
+              {product?.size} cada una.
+            </p>
+            <p>
+              Vino consechado y elaborado en nuestra finca propia de Médanos,
+              Partido de Villarino, Provincia de Buenos Aires. Esta región de
+              suelo de origen calcáreo conforma una región excepcional para la
+              producción de vinos de alta calidad.
+            </p>
+          </div>
+          <Separator />
+          <AddToCartButton product={product} />
         </div>
       </div>
     </div>
