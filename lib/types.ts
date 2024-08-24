@@ -5,7 +5,14 @@ export interface Product {
   type: string;
   year: string;
   size: string;
-  description: string;
+  harvest: String;
+  fermentation: String;
+  aging: String;
+  notes: String;
+  composition: String;
+  cellar: String;
+  alcohol: String;
+  ph: String;
   src: string;
   discount?: string;
   price: string;
@@ -13,7 +20,7 @@ export interface Product {
   available: boolean;
   boxSize: string;
   weight: string;
-  user?: any; // Adjust this type according to your actual user type
+  user?: any;
   updatedAt: Date;
   createdAt: Date;
 }

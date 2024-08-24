@@ -12,7 +12,14 @@ export async function PATCH(
       title,
       price,
       stock,
-      description,
+      harvest,
+      fermentation,
+      aging,
+      notes,
+      composition,
+      cellar,
+      alcohol,
+      ph,
       category,
       type,
       year,
@@ -27,7 +34,14 @@ export async function PATCH(
       !title ||
       !price ||
       !stock ||
-      !description ||
+      !harvest ||
+      !fermentation ||
+      !aging ||
+      !notes ||
+      !composition ||
+      !cellar ||
+      !alcohol ||
+      !ph ||
       !category ||
       !type ||
       !year ||
@@ -46,7 +60,14 @@ export async function PATCH(
         title,
         price,
         stock,
-        description,
+        harvest,
+        fermentation,
+        aging,
+        notes,
+        composition,
+        cellar,
+        alcohol,
+        ph,
         category,
         type,
         year,

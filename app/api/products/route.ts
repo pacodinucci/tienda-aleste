@@ -11,7 +11,14 @@ export async function POST(req: Request) {
       year,
       size,
       src,
-      description,
+      harvest,
+      fermentation,
+      aging,
+      notes,
+      composition,
+      cellar,
+      alcohol,
+      ph,
       user,
       discount,
       price,
@@ -32,7 +39,14 @@ export async function POST(req: Request) {
       !year ||
       !size ||
       !src ||
-      !description ||
+      !harvest ||
+      !fermentation ||
+      !aging ||
+      !notes ||
+      !composition ||
+      !cellar ||
+      !alcohol ||
+      !ph ||
       // !discount ||
       !price ||
       !stock ||
@@ -51,7 +65,14 @@ export async function POST(req: Request) {
         year,
         size,
         src,
-        description,
+        harvest,
+        fermentation,
+        aging,
+        notes,
+        composition,
+        cellar,
+        alcohol,
+        ph,
         discount,
         price,
         stock,

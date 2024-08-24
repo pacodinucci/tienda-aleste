@@ -50,8 +50,29 @@ const formSchema = z.object({
   size: z.string().min(1, {
     message: "Tamaño de vino es requerido.",
   }),
-  description: z.string().min(1, {
-    message: "Descripción del vino es requerido.",
+  harvest: z.string().min(1, {
+    message: "Cosecha del vino es requerido.",
+  }),
+  fermentation: z.string().min(1, {
+    message: "Fermentación del vino es requerido.",
+  }),
+  aging: z.string().min(1, {
+    message: "Añejamiento del vino es requerido.",
+  }),
+  notes: z.string().min(1, {
+    message: "Notas del vino es requerido.",
+  }),
+  composition: z.string().min(1, {
+    message: "Composición del vino es requerido.",
+  }),
+  cellar: z.string().min(1, {
+    message: "Capacidad de guarda del vino es requerido.",
+  }),
+  alcohol: z.string().min(1, {
+    message: "Grado alcoholico del vino es requerido.",
+  }),
+  ph: z.string().min(1, {
+    message: "Acidez del vino es requerido.",
   }),
   src: z.string().min(1, {
     message: "Imagen es requerida.",
@@ -83,7 +104,14 @@ const ProductForm = ({ initialData, user }: ProductFormProps) => {
         type: "",
         year: "",
         size: "750ml",
-        description: "",
+        harvest: "",
+        fermentation: "",
+        aging: "",
+        notes: "",
+        composition: "",
+        cellar: "",
+        alcohol: "",
+        ph: "",
         src: "",
         discount: "0",
         weight: "",
@@ -211,17 +239,103 @@ const ProductForm = ({ initialData, user }: ProductFormProps) => {
                   />
                 </div>
                 <FormField
-                  name="description"
+                  name="harvest"
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Descripción</FormLabel>
+                      <FormLabel>Período de cosecha</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="fermentation"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Fermentación y vinificación</FormLabel>
                       <FormControl>
                         <Textarea {...field} rows={5} className="resize-none" />
                       </FormControl>
                     </FormItem>
                   )}
                 />
+                <FormField
+                  name="notes"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Notas de Cata</FormLabel>
+                      <FormControl>
+                        <Textarea {...field} rows={5} className="resize-none" />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="aging"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Añejamiento</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="composition"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Composición</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <div className="flex gap-x-8">
+                  <FormField
+                    name="cellar"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <FormLabel>Capacidad de guarda</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    name="alcohol"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem className="max-w-40">
+                        <FormLabel>Graduación alcohólica</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    name="ph"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem className="max-w-40">
+                        <FormLabel>Acidez</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </div>
               <FormField
                 name="src"
