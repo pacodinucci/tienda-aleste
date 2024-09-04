@@ -77,3 +77,10 @@ model OrderItem {
   @@index([orderId])
   @@index([productId])
 }
+
+model Climate {
+  id          String   @id @default(uuid())
+  temperature Int
+  humidity    Int
+  createdAt   DateTime @default(now())
+}
