@@ -1,3 +1,4 @@
+import postShipnowVariant from "@/app/actions/post-shipnow-variant";
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
 
@@ -23,6 +24,7 @@ export async function POST(req: Request) {
       discount,
       price,
       stock,
+      external_reference,
       available,
       boxSize,
       weight,
@@ -50,6 +52,7 @@ export async function POST(req: Request) {
       // !discount ||
       !price ||
       !stock ||
+      !external_reference ||
       !available ||
       !boxSize ||
       !weight
@@ -76,12 +79,36 @@ export async function POST(req: Request) {
         discount,
         price,
         stock,
+        external_reference,
         available,
         boxSize,
         weight,
         userId: user.id,
       },
     });
+
+    const variantData = {
+      external_reference,
+      title,
+      price: {
+        retail: price * boxSize,
+      },
+      dimensions: {
+        weight,
+        height: 32,
+        length: 26,
+        width: 18,
+      },
+    };
+
+    console.log(variantData);
+
+    const productVariant = await postShipnowVariant(variantData);
+
+    if (!productVariant)
+      return new NextResponse("Error cargando variante en Shipnow.", {
+        status: 400,
+      });
 
     return NextResponse.json(product);
   } catch (error) {

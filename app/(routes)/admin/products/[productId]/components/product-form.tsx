@@ -85,6 +85,9 @@ const formSchema = z.object({
   stock: z.string().refine((val) => !isNaN(Number(val)), {
     message: "Stock debe ser un número.",
   }),
+  external_reference: z.string().min(5, {
+    message: "External Reference es requerido.",
+  }),
   available: z.boolean().default(true),
   boxSize: z.string(),
 });
@@ -117,6 +120,7 @@ const ProductForm = ({ initialData, user }: ProductFormProps) => {
         weight: "",
         price: "",
         stock: "0", // stock como string
+        external_reference: "",
         available: true,
         boxSize: "6",
       };
@@ -134,6 +138,8 @@ const ProductForm = ({ initialData, user }: ProductFormProps) => {
       stock: Number(data.stock),
     };
 
+    console.log(transformedData);
+    console.log(user);
     try {
       if (!initialData) {
         await axios.post("/api/products", { ...transformedData, user });
@@ -445,6 +451,22 @@ const ProductForm = ({ initialData, user }: ProductFormProps) => {
                         ))}
                       </SelectContent>
                     </Select>
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="py-4">
+              <FormField
+                name="external_reference"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem className="w-1/2">
+                    <FormLabel>
+                      External Reference (Referencia para ShipNow)
+                    </FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
                   </FormItem>
                 )}
               />

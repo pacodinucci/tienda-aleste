@@ -28,6 +28,8 @@ export async function POST(req: Request) {
           },
         });
 
+        // TODO: crear order de shipnow
+
         console.log("METADATA -->>> ", payment.body.metadata);
         payment.body.metadata.products.map(async (product: any) => {
           await db.product.update({
