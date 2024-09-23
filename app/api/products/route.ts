@@ -92,6 +92,8 @@ export async function POST(req: Request) {
       title,
       price: {
         retail: price * boxSize,
+        wholesale: null,
+        buy: null,
       },
       dimensions: {
         weight,
@@ -105,12 +107,22 @@ export async function POST(req: Request) {
 
     const productVariant = await postShipnowVariant(variantData);
 
-    if (!productVariant)
+    if (!productVariant || !productVariant.id) {
       return new NextResponse("Error cargando variante en Shipnow.", {
         status: 400,
       });
+    }
 
-    return NextResponse.json(product);
+    const updatedProduct = await db.product.update({
+      where: {
+        id: product.id,
+      },
+      data: {
+        shipnowVariantId: productVariant.id,
+      },
+    });
+
+    return NextResponse.json(updatedProduct);
   } catch (error) {
     console.log("[PRODUCT_POST]", error);
     return new NextResponse("Internal error", { status: 500 });

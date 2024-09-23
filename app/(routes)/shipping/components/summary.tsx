@@ -101,7 +101,7 @@ const Summary = () => {
       const anotherAddress = shippingInfo.deliveryAddress;
       if (paymentMethod === "mercado-pago") {
         const response = await axios.post(
-          "https://amused-grizzly-presently.ngrok-free.app/api/checkout",
+          "https://bb10-181-167-42-111.ngrok-free.app/api/checkout",
           {
             productIds: cart.map((item) => item.id),
             shippingCost,

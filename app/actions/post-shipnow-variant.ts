@@ -4,7 +4,22 @@ const URL = "https://api.shipnow.com.ar";
 
 const apiToken = "cc5ghy7uhqYujQQ9cNZ8EHppeQO3VYmpdItx9HwgXSowIN4pNw";
 
-const postShipnowVariant = async (variantData: any) => {
+export interface VariantDataProps {
+  external_reference: string;
+  price: {
+    retail: number | null;
+    wholesale: number | null;
+    buy: number | null;
+  } | null;
+  dimensions: {
+    weight: number | null;
+    height: number | null;
+    length: number | null;
+    width: number | null;
+  } | null;
+}
+
+const postShipnowVariant = async (variantData: VariantDataProps) => {
   try {
     const response = await axios.post(`${URL}/variants`, variantData, {
       headers: {
