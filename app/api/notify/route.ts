@@ -31,26 +31,26 @@ export async function POST(req: Request) {
         });
 
         // TODO: crear order de shipnow
-        const shippingDetails = order.shippingDetails as any;
+        // const shippingDetails = order.shippingDetails as any;
 
-        const orderData = {
-          external_reference: order.id,
-          ship_to: {
-            name: order.name,
-            last_name: "",
-            zip_code: shippingDetails?.zipCode,
-            address_line: shippingDetails?.address,
-            city: shippingDetails?.city,
-            state: shippingDetails?.region,
-            email: order.email,
-          },
-          items: order.orderItems.map((item: any) => ({
-            id: item.product.shipnowVariantId,
-            quantity: item.quantity,
-          })),
-        };
+        // const orderData = {
+        //   external_reference: order.id,
+        //   ship_to: {
+        //     name: order.name,
+        //     last_name: "",
+        //     zip_code: shippingDetails?.zipCode,
+        //     address_line: shippingDetails?.address,
+        //     city: shippingDetails?.city,
+        //     state: shippingDetails?.region,
+        //     email: order.email,
+        //   },
+        //   items: order.orderItems.map((item: any) => ({
+        //     id: item.product.shipnowVariantId,
+        //     quantity: item.quantity,
+        //   })),
+        // };
 
-        console.log("OrderData --> ", orderData);
+        // console.log("OrderData --> ", orderData);
 
         // const shipnowResponse = await postShipnowOrder(orderData);
 
