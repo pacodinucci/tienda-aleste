@@ -63,6 +63,7 @@ model Order {
   name            String      @default("")
   billingDetails  Json
   shippingDetails Json
+  cart            Json
   deliveryDays    String[]
   deliveryTime    String[]
   createdAt       DateTime    @default(now())

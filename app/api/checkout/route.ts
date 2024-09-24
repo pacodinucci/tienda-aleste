@@ -107,6 +107,7 @@ export async function POST(
         shippingDetails,
         deliveryDays: data.deliveryDays,
         deliveryTime: data.deliveryTime,
+        cart,
       },
     });
 
