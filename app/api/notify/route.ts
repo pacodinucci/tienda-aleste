@@ -39,21 +39,24 @@ export async function POST(req: Request) {
         // Datos de envío desde shippingDetails (ignoramos los tipos)
         const shippingDetails = order.shippingDetails as any; // Evitamos problemas de tipos
 
-        // Creamos los datos de la orden para Shipnow
+        // Extraemos el `cart` de la orden
+        const cart = order.cart as any[]; // Cart es un JSON, asumimos que contiene los datos correctamente
+
+        // Creamos los datos de la orden para Shipnow basados en el cart
         const orderData = {
-          external_reference: order.id,
+          external_reference: order.id, // Referencia de la orden en nuestro sistema
           ship_to: {
             name: order.name,
-            last_name: "",
+            last_name: "", // Opcional
             zip_code: shippingDetails?.zipCode || "",
             address_line: shippingDetails?.address || "",
             city: shippingDetails?.city || "",
             state: shippingDetails?.region || "",
             email: order.email,
           },
-          items: order.orderItems.map((item: any) => ({
-            id: item.product.shipnowVariantId, // ID de la variante en Shipnow
-            quantity: item.quantity, // Cantidad del producto
+          items: cart.map((item: any) => ({
+            id: item.shipnowVariantId, // Usamos el `shipnowVariantId` almacenado en el cart
+            quantity: item.quantity, // La cantidad de cada producto
           })),
         };
 
