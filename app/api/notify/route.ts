@@ -20,6 +20,9 @@ export async function POST(req: Request) {
   const body = await req.text();
   const parsedBody = JSON.parse(body);
 
+  console.log("EMAIL_USER:", process.env.EMAIL_USER);
+  console.log("EMAIL_PASS:", process.env.EMAIL_PASS);
+
   try {
     console.log("Payload recibido de MercadoPago:", parsedBody);
 
