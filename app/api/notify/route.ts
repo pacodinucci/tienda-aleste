@@ -8,6 +8,7 @@ mercadopago.configure({
   access_token: process.env.MERCADO_PAGO_ACCESS_TOKEN!,
 });
 
+// Configuramos el transporter de nodemailer para Gmail
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -27,6 +28,7 @@ export async function POST(req: Request) {
     console.log("Payload recibido de MercadoPago:", parsedBody);
 
     if (parsedBody.type) {
+      // Encontrar pago en MercadoPago
       const payment = await mercadopago.payment.findById(parsedBody.data.id);
       console.log("Pago encontrado en MercadoPago:", payment);
 
@@ -48,11 +50,11 @@ export async function POST(req: Request) {
 
         console.log("Orden actualizada:", order);
 
-        // Datos de envío desde shippingDetails (ignoramos los tipos)
-        const shippingDetails = order.shippingDetails as any; // Evitamos problemas de tipos
+        // Datos de envío desde shippingDetails
+        const shippingDetails = order.shippingDetails as any;
 
         // Extraemos el `cart` de la orden
-        const cart = order.cart as any[]; // Cart es un JSON, asumimos que contiene los datos correctamente
+        const cart = order.cart as any[];
 
         // Creamos los datos de la orden para Shipnow basados en el cart
         const orderData = {
@@ -74,7 +76,7 @@ export async function POST(req: Request) {
 
         console.log("Datos de la orden para Shipnow:", orderData);
 
-        // Enviamos la orden a Shipnow
+        // Enviar la orden a Shipnow
         const shipnowResponse = await postShipnowOrder(orderData);
         console.log("Respuesta de Shipnow:", shipnowResponse);
 
@@ -85,13 +87,39 @@ export async function POST(req: Request) {
           });
         }
 
-        //TODO: enviar mails con mailchimp
+        // Enviar correo de confirmación
         try {
+          // Crear una plantilla de email (en vez de texto plano)
           const mailOptions = {
-            from: "Bodega Al Este",
-            to: `${order.email}, daniel.dinucci@gmail.com`,
-            subject: "Confirmación de compra",
-            text: "Hola, este es un mail de prueba para la Confirmación de compra de Bodega Al Este.",
+            from: `"Bodega Al Este" <${process.env.EMAIL_USER}>`, // Dirección de envío
+            to: order.email, // Enviamos al email del cliente
+            bcc: "franciscoldinucci@gmail.com", // También enviamos en BCC
+            subject: "Confirmación de compra - Bodega Al Este",
+            html: `
+              <h2>Gracias por tu compra, ${order.name}</h2>
+              <p>Tu pedido ha sido confirmado y lo estamos preparando para su envío.</p>
+              <h3>Detalles del pedido:</h3>
+              <ul>
+                ${
+                  Array.isArray(order.cart) && order.cart.length > 0
+                    ? order.cart
+                        .map(
+                          (item: any) => `
+                            <li>
+                              Producto: ${item.title} <br/>
+                              Cantidad: ${item.quantity} <br/>
+                            </li>
+                          `
+                        )
+                        .join("")
+                    : "<li>No se encontraron productos en esta orden.</li>"
+                }
+              </ul>
+              <p><strong>Total Pagado:</strong> $${payment.body.transaction_details.total_paid_amount.toFixed(
+                2
+              )}</p>
+              <p>Nos pondremos en contacto contigo cuando el pedido esté listo para ser enviado.</p>
+            `,
           };
 
           const info = await transporter.sendMail(mailOptions);
@@ -100,10 +128,10 @@ export async function POST(req: Request) {
             info.messageId
           );
         } catch (error) {
-          console.error("Error sending email", error);
+          console.error("Error al enviar el correo", error);
         }
 
-        // Actualizamos el stock de los productos
+        // Actualizar el stock de los productos
         await Promise.all(
           payment.body.metadata.products.map(async (product: any) => {
             await db.product.update({
