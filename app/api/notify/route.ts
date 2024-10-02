@@ -1,6 +1,7 @@
 import mercadopago from "mercadopago";
 import { NextResponse } from "next/server";
 import db from "@/lib/db";
+import { formatNumber } from "@/lib/helpers";
 import postShipnowOrder from "@/app/actions/post-shipnow-order";
 import nodemailer from "nodemailer";
 
@@ -115,9 +116,14 @@ export async function POST(req: Request) {
                     : "<li>No se encontraron productos en esta orden.</li>"
                 }
               </ul>
-              <p><strong>Total Pagado:</strong> $${payment.body.transaction_details.total_paid_amount.toFixed(
-                2
+              <p><strong>Total Pagado:</strong> $${formatNumber(
+                payment.body.transaction_details.total_paid_amount
               )}</p>
+              <h3>Dirección de entrega:</h3>
+              <p>${orderData.ship_to.address_line}, ${
+              orderData.ship_to.city
+            }, ${orderData.ship_to.state}</p>
+            <br/>
               <p>Nos pondremos en contacto contigo cuando el pedido esté listo para ser enviado.</p>
             `,
           };
