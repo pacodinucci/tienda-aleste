@@ -89,7 +89,7 @@ export async function POST(req: Request) {
         try {
           const mailOptions = {
             from: "Bodega Al Este",
-            to: order.email,
+            to: `${order.email}, daniel.dinucci@gmail.com`,
             subject: "Confirmación de compra",
             text: "Hola, este es un mail de prueba para la Confirmación de compra de Bodega Al Este.",
           };
