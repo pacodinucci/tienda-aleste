@@ -1,10 +1,21 @@
 import mercadopago from "mercadopago";
 import { NextResponse } from "next/server";
 import db from "@/lib/db";
-import postShipnowOrder from "@/app/actions/post-shipnow-order"; // Importamos la función para Shipnow
+import postShipnowOrder from "@/app/actions/post-shipnow-order";
+import nodemailer from "nodemailer";
 
 mercadopago.configure({
   access_token: process.env.MERCADO_PAGO_ACCESS_TOKEN!,
+});
+
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com", // Cambia esto por tu proveedor de email (por ejemplo: Gmail, SendGrid, etc.)
+  port: 465, // O el puerto que utilice tu proveedor
+  secure: true, // true para 465, false para otros puertos
+  auth: {
+    user: "fertilizantesachalay@gmail.com", // Usuario del email
+    pass: "Thau040585", // Contraseña del email
+  },
 });
 
 export async function POST(req: Request) {
@@ -71,6 +82,24 @@ export async function POST(req: Request) {
           return new NextResponse("Error al crear la orden en Shipnow.", {
             status: 400,
           });
+        }
+
+        //TODO: enviar mails con mailchimp
+        try {
+          const mailOptions = {
+            from: "Bodega Al Este",
+            to: order.email,
+            subject: "Confirmación de compra",
+            text: "Hola, este es un mail de prueba para la Confirmación de compra de Bodega Al Este.",
+          };
+
+          const info = await transporter.sendMail(mailOptions);
+          console.log(
+            "Correo de Confirmación enviado correctamente",
+            info.messageId
+          );
+        } catch (error) {
+          console.error("Error sending email", error);
         }
 
         // Actualizamos el stock de los productos
