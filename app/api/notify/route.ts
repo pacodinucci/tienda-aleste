@@ -9,12 +9,10 @@ mercadopago.configure({
 });
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com", // Cambia esto por tu proveedor de email (por ejemplo: Gmail, SendGrid, etc.)
-  port: 465, // O el puerto que utilice tu proveedor
-  secure: true, // true para 465, false para otros puertos
+  service: "gmail",
   auth: {
-    user: "fertilizantesachalay@gmail.com", // Usuario del email
-    pass: "Thau040585", // Contraseña del email
+    user: process.env.EMAIL_USER, // Tu dirección de correo de Gmail
+    pass: process.env.EMAIL_PASS, // App Password generado desde tu cuenta de Google
   },
 });
 
