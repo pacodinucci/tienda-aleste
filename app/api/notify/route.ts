@@ -116,7 +116,7 @@ export async function POST(req: Request) {
                     : "<li>No se encontraron productos en esta orden.</li>"
                 }
               </ul>
-              <p><strong>Total Pagado:</strong> $${formatNumber(
+              <p><strong>Total Pagado:</strong> ${formatNumber(
                 payment.body.transaction_details.total_paid_amount
               )}</p>
               <h3>Dirección de entrega:</h3>
