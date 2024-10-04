@@ -132,7 +132,7 @@ export async function POST(
       },
       auto_return: "approved",
       back_urls: {
-        success: `https://www.bodegaaleste.com?success=1`,
+        success: `https://www.bodegaaleste.com/confirmation?success=1`,
         failure: `https://aleste.vercel.app?canceled=1`,
       },
       notification_url: `https://aleste.vercel.app/api/notify`,
