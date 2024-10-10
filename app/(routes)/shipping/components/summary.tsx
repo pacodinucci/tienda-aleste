@@ -104,7 +104,7 @@ const Summary = () => {
           "https://www.bodegaaleste.com/api/checkout",
           {
             productIds: cart.map((item) => item.id),
-            shippingCost,
+            shippingCost: 0,
             cart,
             data,
             anotherAddress,
