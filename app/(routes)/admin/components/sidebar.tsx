@@ -9,6 +9,7 @@ import {
   Package,
   User,
   LayoutDashboard,
+  FileBox,
 } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -46,6 +47,12 @@ export const Sidebar = () => {
       icon: User,
       href: "/settings",
       label: "Clientes",
+      pro: false,
+    },
+    {
+      icon: FileBox,
+      href: "/admin/stock",
+      label: "Stock",
       pro: false,
     },
   ];

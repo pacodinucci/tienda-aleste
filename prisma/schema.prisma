@@ -87,3 +87,12 @@ model Climate {
   humidity    Int
   createdAt   DateTime @default(now())
 }
+
+model Packingbill {
+  id                String @id @default(uuid())
+  packingbillNumber String @unique
+  products          Json // Almacena un array de objetos con productId y stock
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
