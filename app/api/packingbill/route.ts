@@ -7,10 +7,39 @@ export async function POST(req: Request) {
     const { packingbillNumber, products } = body;
 
     if (!packingbillNumber || !products || !products.length)
-      return new NextResponse("All fileds are required.", { status: 400 });
+      return new NextResponse("All fields are required.", { status: 400 });
 
-    // TODO: Products id validation
+    // Actualizar el stock de cada producto
+    for (const product of products) {
+      const { productId, stock } = product;
 
+      if (!productId || stock === undefined) {
+        return new NextResponse("Each product must have an id and stock.", {
+          status: 400,
+        });
+      }
+
+      // Buscar el producto en la base de datos
+      const existingProduct = await db.product.findUnique({
+        where: { id: productId },
+      });
+
+      if (!existingProduct) {
+        return new NextResponse(`Product with id ${productId} not found.`, {
+          status: 404,
+        });
+      }
+
+      // Actualizar el stock del producto
+      await db.product.update({
+        where: { id: productId },
+        data: {
+          stock: existingProduct.stock + stock, // Restar la cantidad del stock
+        },
+      });
+    }
+
+    // Crear el remito en la base de datos
     const packingbill = await db.packingbill.create({
       data: {
         packingbillNumber,
