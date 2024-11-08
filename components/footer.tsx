@@ -14,7 +14,7 @@ import { montserrat, oswald } from "@/lib/fonts";
 
 const Footer = () => {
   return (
-    <div className="bg-midBrownCustom md:h-96 md:px-20 flex flex-col md:flex-row gap-x-24 text-white mt-16">
+    <div className="bg-stone-900 md:h-96 md:px-20 flex flex-col md:flex-row gap-x-24 text-white mt-16">
       <div className="flex flex-col gap-y-10 pt-8 px-4">
         <div className="flex gap-y-4">
           <Image
@@ -32,7 +32,7 @@ const Footer = () => {
         </div>
         <div className="w-[80vw] md:w-[25vw] flex flex-col gap-y-2">
           <p
-            className={`${montserrat.className} text-sm font-medium text-darkCustom tracking-wide`}
+            className={`${montserrat.className} text-sm font-medium text-brownCustom tracking-wide`}
           >
             Ingresá tu email para recibir información sobre nuestros nuevos
             productos, eventos, visitas y todas las experiencias que Bodega Al
@@ -44,7 +44,7 @@ const Footer = () => {
               className="bg-transparent text-darkCustom border-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-none focus-visible:outline-none placeholder:text-brownCustom"
               placeholder="Ingresá tu email..."
             />
-            <ArrowRight size={40} className="text-darkCustom mr-2" />
+            <ArrowRight size={40} className="text-brownCustom mr-2" />
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@ const Footer = () => {
           Links
         </h2>
         <ul
-          className={`${montserrat.className} flex flex-col gap-y-2 text-darkCustom font-medium`}
+          className={`${montserrat.className} flex flex-col gap-y-2 text-brownCustom font-medium`}
         >
           <li className="cursor-pointer">Tienda online</li>
           <li className="cursor-pointer">Contacto</li>
@@ -87,7 +87,7 @@ const Footer = () => {
             <p
               className={`${montserrat.className} tracking-wide text-brownCustom font-medium`}
             >
-              +54 11 4545 4545
+              +54 11 5804 3333
             </p>
           </li>
           <li className="flex gap-x-2 items-center">
@@ -99,10 +99,10 @@ const Footer = () => {
             </p>
           </li>
           <li className="flex gap-x-2">
-            <span className="w-10 h-10 bg-darkCustom rounded-full flex justify-center items-center">
+            <span className="w-10 h-10 bg-midBrownCustom rounded-full flex justify-center items-center">
               <Instagram />
             </span>
-            <span className="w-10 h-10 bg-darkCustom rounded-full flex justify-center items-center">
+            <span className="w-10 h-10 bg-midBrownCustom rounded-full flex justify-center items-center">
               <MessageCircle />
             </span>
           </li>
