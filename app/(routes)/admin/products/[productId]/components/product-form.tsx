@@ -138,7 +138,7 @@ const ProductForm = ({ initialData, user }: ProductFormProps) => {
       stock: Number(data.stock),
     };
 
-    console.log(transformedData);
+    console.log({ transformedData });
     console.log(user);
     try {
       if (!initialData) {

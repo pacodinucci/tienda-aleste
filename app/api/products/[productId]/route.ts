@@ -8,6 +8,7 @@ export async function PATCH(
 ) {
   try {
     const body = await req.json();
+    console.log({ body });
     const {
       title,
       price,
@@ -49,7 +50,7 @@ export async function PATCH(
       !boxSize ||
       !src ||
       !discount ||
-      !available
+      available === null
     ) {
       return new NextResponse("All fields are required.", { status: 400 });
     }

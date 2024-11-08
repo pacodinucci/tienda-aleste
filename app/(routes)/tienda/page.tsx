@@ -8,7 +8,11 @@ import MobileCarousel from "./components/mobile-carousel";
 import Banners from "./components/banners";
 
 const TiendaPage = async () => {
-  const products = await db.product.findMany();
+  const products = await db.product.findMany({
+    where: {
+      available: true,
+    },
+  });
 
   return (
     <div className="min-h-screen">
