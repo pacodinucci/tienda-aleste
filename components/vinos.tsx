@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 
@@ -16,11 +16,13 @@ const VinosSection = () => {
     margin: "0px 0px -50px 0px",
   });
 
-  // const refMobile = useRef(null);
-  // const isInViewMobile = useInView(refMobile, {
-  //   once: true,
-  //   margin: "0px 0px -50% 0px",
-  // });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleButtonClick = () => {
+    setIsLoading(true);
+    router.push("/tienda");
+    setTimeout(() => setIsLoading(false), 1000);
+  };
 
   return (
     <div
@@ -98,9 +100,9 @@ const VinosSection = () => {
           </p>
           <Button
             className={`${montserrat.className} rounded-none hover:bg-midBrownCustom/80 self-start bg-midBrownCustom uppercase tracking-wide text-bas`}
-            onClick={() => router.push("/tienda")}
+            onClick={handleButtonClick}
           >
-            Ir a la tienda online
+            {isLoading ? "Cargando..." : "Ir a la tienda online"}
           </Button>
         </div>
       </div>

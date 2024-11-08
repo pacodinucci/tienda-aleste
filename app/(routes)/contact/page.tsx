@@ -11,7 +11,7 @@ const ContactPage = () => {
       <Navbar />
       <div className="flex flex-1">
         {/* Sección izquierda: Imagen */}
-        <div className="w-1/2 h-full fixed top-0 left-0">
+        <div className="w-0 md:w-1/2 h-full fixed top-0 left-0">
           <Image
             src="/cava.png"
             alt="cava bodega al este"
@@ -22,7 +22,7 @@ const ContactPage = () => {
         </div>
 
         {/* Sección derecha: Información de contacto */}
-        <div className="bg-brownCustom w-1/2 ml-auto overflow-y-auto p-8 pt-24">
+        <div className="bg-brownCustom w-full md:w-1/2 ml-auto overflow-y-auto p-8 pt-24">
           <div className="pl-8">
             <h1
               className={`${oswald.className} uppercase text-4xl text-darkCustom mb-4`}

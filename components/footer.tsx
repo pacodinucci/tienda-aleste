@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 import {
@@ -11,8 +13,11 @@ import {
 
 import { Input } from "./ui/input";
 import { montserrat, oswald } from "@/lib/fonts";
+import { useRouter } from "next/navigation";
 
 const Footer = () => {
+  const router = useRouter();
+
   return (
     <div className="bg-stone-900 md:h-96 md:px-20 flex flex-col md:flex-row gap-x-24 text-white mt-16">
       <div className="flex flex-col gap-y-10 pt-8 px-4">
@@ -57,9 +62,21 @@ const Footer = () => {
         <ul
           className={`${montserrat.className} flex flex-col gap-y-2 text-brownCustom font-medium`}
         >
-          <li className="cursor-pointer">Tienda online</li>
-          <li className="cursor-pointer">Contacto</li>
-          <li className="cursor-pointer">Visitas</li>
+          <li className="cursor-pointer" onClick={() => router.push("/tienda")}>
+            Tienda online
+          </li>
+          <li
+            className="cursor-pointer"
+            onClick={() => router.push("/contact")}
+          >
+            Contacto
+          </li>
+          <li
+            className="cursor-pointer"
+            onClick={() => router.push("/contact")}
+          >
+            Visitas
+          </li>
           <li className="cursor-pointer">Medios de pago y envío</li>
           <li className="cursor-pointer">Políticas de privacidad</li>
           <li className="cursor-pointer">Términos y condiciones</li>
