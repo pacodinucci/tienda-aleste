@@ -39,12 +39,12 @@ const ContactPage = () => {
               <p
                 className={`${montserrat.className} text-xl text-neutral-800 py-4`}
               >
-                info@bodegaaleste.com.ar
+                bodega.aleste@gmail.com
               </p>
               <p
                 className={`${montserrat.className} text-xl text-neutral-800 py-4`}
               >
-                +54 11 4444 4444
+                +54 11 5804 3333
               </p>
               <p
                 className={`${montserrat.className} text-xl text-neutral-800 py-4`}
